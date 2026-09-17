@@ -9,7 +9,9 @@
 import os
 import re
 import sys
+import time
 import html
+import json
 import xml.etree.ElementTree as ET
 import urllib.request
 import urllib.parse
@@ -38,6 +40,30 @@ WINDOW_HOURS = 24           # 只取最近 24 小时
 DRY_RUN = "--dry-run" in sys.argv
 
 UA = {"User-Agent": "Mozilla/5.0 (compatible; web3-daily/1.0)"}
+
+TRANSLATE = "--no-translate" not in sys.argv   # 默认翻译成中文
+_CJK = re.compile(r"[\u4e00-\u9fff]")
+
+
+def translate(text, retries=2):
+    """英文标题 -> 简体中文。失败时返回原文（不影响推送主流程）。"""
+    if not TRANSLATE or _CJK.search(text):
+        return text
+    q = urllib.parse.quote(text[:500])
+    url = ("https://translate.googleapis.com/translate_a/single"
+           f"?client=gtx&sl=en&tl=zh-CN&dt=t&q={q}")
+    for i in range(retries + 1):
+        try:
+            req = urllib.request.Request(url, headers=UA)
+            with urllib.request.urlopen(req, timeout=15) as r:
+                data = json.loads(r.read().decode())
+            out = "".join(seg[0] for seg in data[0] if seg and seg[0])
+            if out.strip():
+                return out.strip()
+        except Exception:
+            if i < retries:
+                time.sleep(1.5)
+    return text  # 翻译失败回退原文
 
 
 def fetch(url, timeout=25):
@@ -121,12 +147,14 @@ def build_briefing():
                 continue
             seen.add(key)
             tag = pub.astimezone(timezone(timedelta(hours=8))).strftime("%H:%M")
-            show = title if len(title) <= 80 else title[:80] + "…"
+            zh = translate(title)
+            show = zh if len(zh) <= 80 else zh[:80] + "…"
             if link:
                 lines.append(f"- [{show}]({link}) `{tag}`")
             else:
                 lines.append(f"- {show} `{tag}`")
             total += 1
+            time.sleep(0.25)  # 翻译接口限速保护
         lines.append("")
         if len(lines) > 3:
             sections.append("\n".join(lines))

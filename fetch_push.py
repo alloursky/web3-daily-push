@@ -43,6 +43,33 @@ UA = {"User-Agent": "Mozilla/5.0 (compatible; web3-daily/1.0)"}
 
 TRANSLATE = "--no-translate" not in sys.argv   # 默认翻译成中文
 _CJK = re.compile(r"[\u4e00-\u9fff]")
+REPO = os.environ.get("GITHUB_REPOSITORY", "")
+GH_TOKEN = os.environ.get("GITHUB_TOKEN", "")
+
+
+def already_sent_today():
+    """检查今天（北京时间）是否已有一次成功的定时推送，避免多班次重发。"""
+    if not (REPO and GH_TOKEN) or "--force" in sys.argv:
+        return False
+    try:
+        req = urllib.request.Request(
+            f"https://api.github.com/repos/{REPO}/actions/runs"
+            "?event=schedule&per_page=10",
+            headers={"Authorization": f"Bearer {GH_TOKEN}",
+                     "Accept": "application/vnd.github+json"})
+        with urllib.request.urlopen(req, timeout=15) as r:
+            runs = json.loads(r.read()).get("workflow_runs", [])
+        today = (datetime.now(timezone.utc) + timedelta(hours=8)).strftime("%Y-%m-%d")
+        for run in runs:
+            if run.get("conclusion") != "success":
+                continue
+            d = (datetime.fromisoformat(run["created_at"].replace("Z", "+00:00"))
+                 + timedelta(hours=8))
+            if d.strftime("%Y-%m-%d") == today:
+                return True
+    except Exception as e:
+        print("dedupe check failed (continue to push):", e)
+    return False
 
 
 def translate(text, retries=2):
@@ -177,6 +204,9 @@ def push(title, desp):
 
 
 def main():
+    if already_sent_today():
+        print("今日定时推送已完成，本班次跳过（防重发）")
+        return
     if not SENDKEY and not DRY_RUN:
         print("ERROR: 未配置 SENDKEY（设置 secret SERVERCHAN_SENDKEY 或本地 .sendkey 文件）")
         sys.exit(1)

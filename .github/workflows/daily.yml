@@ -1,19 +1,33 @@
-name: daily-web3-briefing
+name: web3-briefing
 
 on:
   schedule:
-    # 北京时间 03:30~10:30 每小时一班（共8班）。
-    # GitHub 对私有仓库定时任务存在约 2~5 小时的系统性延迟：
-    #   - 不延迟：凌晨送达，用户醒来即可看到
-    #   - 延迟4.5h：8:00 左右送达
-    # 脚本内置"今日已推送"检测，第一班成功后其余自动跳过（一天只发一条）
-    - cron: '30 19-23 * * *'
-    - cron: '30 0-2 * * *'
-  workflow_dispatch:        # 支持手动触发（不受防重发限制）
+    # ===== 正班：北京时间 6 / 9 / 12 / 15 / 18 点整（UTC 前一天22点 + 当天1/4/7/10点）=====
+    - cron: '0 22 * * *'      # 北京 06:00
+    - cron: '0 1 * * *'       # 北京 09:00
+    - cron: '0 4 * * *'       # 北京 12:00
+    - cron: '0 7 * * *'       # 北京 15:00
+    - cron: '0 10 * * *'      # 北京 18:00
+    # ===== 自愈班：每档 +1 小时，若该档已成功推送则脚本自动跳过 =====
+    - cron: '0 23 * * *'      # 北京 07:00（兜底 06 档）
+    - cron: '0 2 * * *'       # 北京 10:00（兜底 09 档）
+    - cron: '0 5 * * *'       # 北京 13:00（兜底 12 档）
+    - cron: '0 8 * * *'       # 北京 16:00（兜底 15 档）
+    - cron: '0 11 * * *'      # 北京 19:00（兜底 18 档）
+  workflow_dispatch:
+    inputs:
+      force:
+        description: '强制推送（忽略档位防重发）'
+        type: boolean
+        default: false
 
 permissions:
-  contents: read
+  contents: write     # 允许回写 state.json（增量去重的状态文件）
   actions: read
+
+concurrency:
+  group: web3-briefing
+  cancel-in-progress: false
 
 jobs:
   push:
@@ -30,6 +44,19 @@ jobs:
         env:
           SERVERCHAN_SENDKEY: ${{ secrets.SERVERCHAN_SENDKEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PUSH_FORCE: ${{ github.event_name == 'workflow_dispatch' && inputs.force == true && '1' || '' }}
+
+      - name: Save push state
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add state.json || true
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: update push state [skip ci]"
+            git pull --rebase --autostash origin main || true
+            git push
+          fi
 
   # 防止 GitHub 因仓库 60 天无活动自动停用定时任务
   keepalive:

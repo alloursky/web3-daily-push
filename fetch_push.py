@@ -327,6 +327,9 @@ def build_items(since_dt, seen_before):
             if k in seen:
                 continue
             seen.add(k)
+            # 描述与标题重复时丢弃（Google News 常见情况）
+            if desc and (title[:12] in desc or desc[:12] in title):
+                desc = ""
             g = route(feed["group"], title)
             buckets[g].append(dict(group=g, pub=pub, title=title,
                                    link=link, desc=desc))
@@ -397,6 +400,8 @@ def make_poster(items, slot_dt, out_path):
         twt = d.textlength(tm, font=f_detail)
         d.text((W - 70 - twt, y + 10), tm, font=f_detail, fill=gray)
         title = it.get("title_zh") or it["title"]
+        # 去掉标题尾部的 "- 媒体名"（Google News 格式）
+        title = re.sub(r"\s*-\s*\S{2,22}$", "", title) if " - " in title else title
         ty = y + 62
         for ln in _wrap(d, title, f_item, W - 140):
             d.text((70, ty), ln, font=f_item, fill=white)

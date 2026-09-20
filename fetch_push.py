@@ -327,8 +327,9 @@ def build_items(since_dt, seen_before):
             if k in seen:
                 continue
             seen.add(k)
-            buckets[route(feed["group"], title)].append(
-                dict(pub=pub, title=title, link=link, desc=desc))
+            g = route(feed["group"], title)
+            buckets[g].append(dict(group=g, pub=pub, title=title,
+                                   link=link, desc=desc))
     picked = []
     for g, _, cap in GROUPS:
         picked.extend(buckets[g][:cap])

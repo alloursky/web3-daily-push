@@ -68,23 +68,33 @@ def gn(q, zh=True):
 
 
 FEEDS = [
-    # 早期融资雷达
-    dict(group="raise", name="融资·中文", url=gn("加密 项目 完成 融资 种子轮 OR 领投 OR 战略轮")),
-    dict(group="raise", name="融资·英文", url=gn("crypto startup raises seed OR pre-seed OR strategic round", zh=False)),
-    # 测试网与撸毛任务
-    dict(group="testnet", name="撸毛·中文", url=gn("测试网 空投 交互 OR 攒积分 OR 撸毛 任务")),
-    dict(group="testnet", name="撸毛·英文", url=gn("incentivized testnet quest points airdrop guide", zh=False)),
-    # 预TGE与新上币
-    dict(group="tge", name="TGE·快照", url=gn("TGE OR 代币生成 OR 快照 OR 积分 空投")),
-    dict(group="tge", name="新上币", url=gn("Binance Alpha OR 币安Alpha OR 新池 OR 上币")),
-    # BTC / ZEC 生态
-    dict(group="btczec", name="BTC生态", url=gn("比特币生态 OR runes OR ordinals OR BRC-20 OR 比特币L2 项目")),
-    dict(group="btczec", name="ZEC生态", url=gn("Zcash OR ZEC 生态 项目 OR 升级 OR 融资")),
-    dict(group="btczec", name="BTC·英文", url=gn("bitcoin L2 OR runes OR ordinals project launch funding", zh=False)),
-    # X / 推特风向（直连源失败自动降级到聚合源）
+    # ---- 直连稳定源（主通道，不依赖 Google）----
+    dict(group="web", name="CoinDesk", url="https://www.coindesk.com/arc/outboundfeeds/rss/"),
+    dict(group="web", name="Cointelegraph", url="https://cointelegraph.com/rss"),
+    dict(group="web", name="Decrypt", url="https://decrypt.co/feed"),
     dict(group="x", name="X·BlockBeats", url="https://rss.theblockbeats.info/flash"),
     dict(group="x", name="X·PANews", url="https://rss.panewslab.com/zh/whatsnew"),
-    dict(group="x", name="X·KOL热议", url=gn("推特 KOL 加密货币 OR web3 OR 代币 喊单")),
+    # ---- Google News 定向查询（补充通道，全部限定最近1天）----
+    dict(group="raise", name="融资·中文",
+         url=gn("加密 项目 完成 融资 种子轮 OR 领投 OR 战略轮 when:1d")),
+    dict(group="raise", name="融资·英文",
+         url=gn("crypto startup raises seed OR pre-seed round when:1d", zh=False)),
+    dict(group="testnet", name="撸毛·中文",
+         url=gn("测试网 空投 交互 OR 攒积分 OR 撸毛 任务 when:1d")),
+    dict(group="testnet", name="撸毛·英文",
+         url=gn("incentivized testnet quest points airdrop when:1d", zh=False)),
+    dict(group="tge", name="TGE·快照",
+         url=gn("TGE OR 代币生成 OR 快照 OR 积分 空投 when:1d")),
+    dict(group="tge", name="新上币",
+         url=gn("Binance Alpha OR 币安Alpha OR 新池 OR 上币 when:1d")),
+    dict(group="btczec", name="BTC生态",
+         url=gn("比特币生态 OR runes OR ordinals OR 比特币L2 when:1d")),
+    dict(group="btczec", name="ZEC生态",
+         url=gn("Zcash OR ZEC 生态 OR 升级 OR 融资 when:1d")),
+    dict(group="btczec", name="BTC·英文",
+         url=gn("bitcoin L2 OR runes OR ordinals launch when:1d", zh=False)),
+    dict(group="x", name="X·KOL热议",
+         url=gn("推特 KOL 加密货币 OR web3 OR 代币 喊单 when:1d")),
 ]
 
 GROUPS = [
@@ -93,11 +103,13 @@ GROUPS = [
     ("tge", "🚀 预TGE与新上币", 2),
     ("btczec", "⚡ BTC/ZEC 生态", 2),
     ("x", "🐦 X/推特风向", 3),
+    ("web", "🌐 全网动态", 2),
 ]
 CHIP_LABEL = {"raise": "早期融资", "testnet": "测试网撸毛", "tge": "预TGE/新币",
-              "btczec": "BTC/ZEC", "x": "X风向"}
+              "btczec": "BTC/ZEC", "x": "X风向", "web": "全网动态"}
 CHIP_COLOR = {"raise": (245, 158, 11), "testnet": (16, 185, 129),
-              "tge": (139, 92, 246), "btczec": (247, 147, 26), "x": (56, 189, 248)}
+              "tge": (139, 92, 246), "btczec": (247, 147, 26), "x": (56, 189, 248),
+              "web": (100, 116, 139)}
 
 # 关键词路由（优先级：BTCZEC > TGE > 测试网 > 融资 > 默认）
 BTCZEC_KW = ["比特币", "bitcoin", "btc", "符文", "铭文", "runes", "ordinals",
@@ -319,8 +331,10 @@ def build_items(since_dt, seen_before):
     for feed in FEEDS:
         try:
             items = collect_items(fetch(feed["url"]), since_dt)
-        except Exception:
+            print(f"  [源:{feed['name']}] 抓到 {len(items)} 条（窗口内）")
+        except Exception as e:
             failed.append(feed["name"])
+            print(f"  [源:{feed['name']}] 失败: {type(e).__name__} {str(e)[:50]}")
             continue
         for pub, title, link, desc in items:
             k = key_of(title)
@@ -428,7 +442,7 @@ def make_poster(items, slot_dt, out_path):
 # ---------------- 文案 ----------------
 def build_tweet(items, slot_dt):
     lines = [f"⚡ Web3 Alpha 速递 | {slot_dt:%m-%d} {slot_dt:%H}点档"]
-    emoji = {"raise": "💰", "testnet": "🧪", "tge": "🚀", "btczec": "⚡", "x": "🐦"}
+    emoji = {"raise": "💰", "testnet": "🧪", "tge": "🚀", "btczec": "⚡", "x": "🐦", "web": "🌐"}
     for g, header, _ in GROUPS:
         gi = [i for i in items if i["group"] == g]
         if not gi:
@@ -501,11 +515,29 @@ def main():
     print(f"档位: {slot_key} | 增量窗口起点(UTC): {since_dt:%Y-%m-%d %H:%M}")
 
     items, failed = build_items(since_dt, state["seen"])
+    print(f"抓取完成: 精选 {len(items)} 条 | 失败源 {len(failed)}/{len(FEEDS)}: {failed}")
+
     if not items:
+        # 数据源大面积失败 = 基础设施故障：不消耗档位，下个班次自动重试
+        if len(failed) >= len(FEEDS) - 2:
+            print("ERROR: 数据源几乎全部失败，本档不算完成，等待下个班次重试")
+            sys.exit(2)
+        # 距上次成功推送太久仍无新增，也视为异常（Web3 不可能几小时无新闻）
+        if state["last_push_at"]:
+            try:
+                last = datetime.fromisoformat(state["last_push_at"])
+                if last.tzinfo is None:
+                    last = last.replace(tzinfo=CST)
+                gap = (now_cst - last).total_seconds() / 3600
+                if gap > 6:
+                    print(f"ERROR: 距上次推送已 {gap:.1f} 小时却无新增，疑似异常，本档不标记完成")
+                    sys.exit(2)
+            except Exception:
+                pass
         state["slots_done"].append(slot_key)
         if not DRY_RUN:
             save_state(state)
-        print("本档无新增消息，不推送（不消耗额度）")
+        print("本档确认无新增消息，不推送（不消耗额度）")
         return
 
     for it in items:

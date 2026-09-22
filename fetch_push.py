@@ -98,18 +98,17 @@ FEEDS = [
 ]
 
 GROUPS = [
-    ("raise", "💰 早期融资雷达", 3),
-    ("testnet", "🧪 测试网与撸毛任务", 2),
-    ("tge", "🚀 预TGE与新上币", 2),
-    ("btczec", "⚡ BTC/ZEC 生态", 2),
-    ("x", "🐦 X/推特风向", 3),
-    ("web", "🌐 全网动态", 2),
+    ("chain", "🆕 链上新项目", 2),
+    ("raise", "💰 早期融资雷达", 2),
+    ("testnet", "🧪 测试网与撸毛", 1),
+    ("tge", "🚀 预TGE与新上币", 1),
+    ("btczec", "⚡ BTC/ZEC 生态", 1),
+    ("x", "🐦 X/推特风向", 1),
 ]
-CHIP_LABEL = {"raise": "早期融资", "testnet": "测试网撸毛", "tge": "预TGE/新币",
-              "btczec": "BTC/ZEC", "x": "X风向", "web": "全网动态"}
-CHIP_COLOR = {"raise": (245, 158, 11), "testnet": (16, 185, 129),
-              "tge": (139, 92, 246), "btczec": (247, 147, 26), "x": (56, 189, 248),
-              "web": (100, 116, 139)}
+CHIP_LABEL = {"chain": "链上新项目", "raise": "早期融资", "testnet": "测试网撸毛",
+              "tge": "预TGE/新币", "btczec": "BTC/ZEC", "x": "X风向"}
+CHIP_COLOR = {"chain": (236, 72, 153), "raise": (245, 158, 11), "testnet": (16, 185, 129),
+              "tge": (139, 92, 246), "btczec": (247, 147, 26), "x": (56, 189, 248)}
 
 # 关键词路由（优先级：BTCZEC > TGE > 测试网 > 融资 > 默认）
 BTCZEC_KW = ["比特币", "bitcoin", "btc", "符文", "铭文", "runes", "ordinals",
@@ -323,9 +322,151 @@ def key_of(title):
     return re.sub(r"\s+", "", title)[:60].lower()
 
 
+def _dex_token_meta(addr):
+    """DexScreener 代币详情：名称/符号/价格/流动性。失败返回 None。"""
+    try:
+        raw = fetch(f"https://api.dexscreener.com/latest/dex/tokens/{addr}", timeout=12)
+        pairs = json.loads(raw).get("pairs") or []
+        if not pairs:
+            return None
+        p = max(pairs, key=lambda x: (x.get("liquidity") or {}).get("usd") or 0)
+        bt = p.get("baseToken") or {}
+        return dict(name=bt.get("name", ""), symbol=bt.get("symbol", ""),
+                    price=p.get("priceUsd"),
+                    liq=(p.get("liquidity") or {}).get("usd"),
+                    pair_url=p.get("url", ""))
+    except Exception:
+        return None
+
+
+def _fmt_usd(v):
+    try:
+        v = float(v)
+    except (TypeError, ValueError):
+        return ""
+    if v >= 1_000_000:
+        return f"${v/1_000_000:.2f}M"
+    if v >= 1_000:
+        return f"${v/1_000:.1f}K"
+    return f"${v:.4g}"
+
+
+def fetch_chain_new(seen, cap=2):
+    """DexScreener 最新链上代币档案 + 详情（免费无Key）。返回 (items, 是否失败)。"""
+    out = []
+    try:
+        raw = fetch("https://api.dexscreener.com/token-profiles/latest/v1", timeout=15)
+        data = json.loads(raw)
+    except Exception as e:
+        print(f"  [源:DexScreener] 失败: {type(e).__name__} {str(e)[:50]}")
+        return out, True
+    for t in data:
+        if len(out) >= cap:
+            break
+        addr = t.get("tokenAddress", "")
+        chain = t.get("chainId", "?")
+        if not addr or f"dex:{addr}" in seen:
+            continue
+        desc = parse_text(t.get("description") or "")[:60]
+        links = t.get("links") or []
+        def _find(*keys):
+            kl = {k.lower() for k in keys}
+            for l in links:
+                if str(l.get("type") or l.get("label") or "").lower() in kl:
+                    return l.get("url", "")
+            return ""
+        meta = _dex_token_meta(addr)
+        time.sleep(0.3)
+        facts = [f"链: {chain}"]
+        if meta:
+            if meta["price"]:
+                facts.append(f"价格 {_fmt_usd(meta['price'])}")
+            if meta["liq"]:
+                facts.append(f"流动性 {_fmt_usd(meta['liq'])}")
+        facts.append(f"合约: {addr[:6]}…{addr[-4:]}")
+        if meta and meta["symbol"]:
+            title = f"{meta['symbol']} ({meta['name']})" + (f"｜{desc}" if desc else "")
+        else:
+            title = desc or f"{chain} 链新代币 {addr[:8]}…"
+        link = (_find("website") or _find("twitter")
+                or (meta or {}).get("pair_url")
+                or f"https://dexscreener.com/{chain}/{addr}")
+        out.append(dict(group="chain", pub=datetime.now(timezone.utc),
+                        title=title[:80], link=link, desc="", facts=facts,
+                        _key=f"dex:{addr}"))
+    print(f"  [源:DexScreener] 新增链上项目 {len(out)} 个")
+    return out, False
+
+
+def fetch_trending():
+    """CoinGecko 实时热搜榜（免费无Key）。失败返回 []。"""
+    try:
+        raw = fetch("https://api.coingecko.com/api/v3/search/trending", timeout=15)
+        data = json.loads(raw)
+        out = []
+        for c in data.get("coins", [])[:5]:
+            it = c["item"]
+            rank = it.get("market_cap_rank")
+            tag = f"{it.get('name')}({it.get('symbol')})"
+            out.append(tag + (f" #{rank}" if rank else ""))
+        return out
+    except Exception as e:
+        print(f"  [源:CoinGecko] 失败: {type(e).__name__} {str(e)[:50]}")
+        return []
+
+
+# ---- 详情深挖：抓原文抽关键事实 ----
+_FACT_AMOUNT = [r"\$\s?[\d,.]+\s?(?:million|billion|mn|bn|m|b)\b",
+                r"[\d,.]+\s?(?:万美元|万美金|亿美元|亿美金|百万美元)"]
+_FACT_LEAD = [r"(?:led by|co-led by)\s+([A-Z][\w&.,' ]{2,40}?)(?:,| with| and|\.|$)",
+              r"由\s*([\w一-龥A-Za-z·]{2,16}?)\s*领投",
+              r"([\w一-龥A-Za-z·]{2,16}?)\s*领投"]
+_FACT_DEADLINE = [r"(?:截止|截至|before|deadline|by)\s*[:：]?\s*(\d{1,2}\s?月\s?\d{1,2}\s?日|\w+ \d{1,2})",
+                  r"(\d{1,2}\s?月\s?\d{1,2}\s?日)\s*(?:前|截止|领取|快照)"]
+
+
+def _first_match(patterns, text):
+    for p in patterns:
+        m = re.search(p, text)
+        if m:
+            return (m.group(1) if m.groups() else m.group(0)).strip()
+    return ""
+
+
+def enrich(it):
+    """抓原文，抽取金额/领投/时间窗口等关键事实；失败静默保留原样。"""
+    link = it.get("link") or ""
+    if not link.startswith("http"):
+        return
+    try:
+        raw = fetch(link, timeout=12)[:200_000].decode("utf-8", "ignore")
+    except Exception:
+        return
+    text = re.sub(r"(?is)<(script|style|noscript)[^>]*>.*?</\1>", " ", raw)
+    text = parse_text(text)[:1600]
+    facts = []
+    amt = _first_match(_FACT_AMOUNT, text)
+    if amt:
+        facts.append(f"金额 {amt}")
+    lead = _first_match(_FACT_LEAD, text)
+    if lead:
+        facts.append(f"领投 {lead}")
+    dl = _first_match(_FACT_DEADLINE, text)
+    if dl:
+        facts.append(f"窗口 {dl}")
+    if facts:
+        it["facts"] = facts
+    if not it.get("desc"):
+        m = re.search(r'<meta[^>]+(?:property|name)=["\'](?:og:)?description["\'][^>]+content=["\']([^"\']{25,200})',
+                      raw, re.I)
+        if m:
+            it["desc"] = parse_text(m.group(1))[:80]
+
+
 def build_items(since_dt, seen_before):
-    """抓全部源 -> 路由 -> 按板块优先级精选。返回 (items, failed_feeds)。"""
-    buckets = {g: [] for g, _, _ in GROUPS}
+    """抓全部源 -> 路由 -> 链上新项目 -> 按板块精选。返回 (items, failed_feeds)。"""
+    from collections import defaultdict
+    buckets = defaultdict(list)
     seen = set(seen_before)
     failed = []
     for feed in FEEDS:
@@ -345,8 +486,15 @@ def build_items(since_dt, seen_before):
             if desc and (title[:12] in desc or desc[:12] in title):
                 desc = ""
             g = route(feed["group"], title)
+            if g == "web":        # 全网新闻仅作关键词路由素材，不直接入精选
+                continue
             buckets[g].append(dict(group=g, pub=pub, title=title,
                                    link=link, desc=desc))
+    chain_items, dex_failed = fetch_chain_new(seen, cap=2)
+    if dex_failed:
+        failed.append("DexScreener")
+    for it in chain_items:
+        buckets["chain"].append(it)
     picked = []
     for g, _, cap in GROUPS:
         picked.extend(buckets[g][:cap])
@@ -420,7 +568,7 @@ def make_poster(items, slot_dt, out_path):
         for ln in _wrap(d, title, f_item, W - 140):
             d.text((70, ty), ln, font=f_item, fill=white)
             ty += 46
-        det = it.get("desc") or ""
+        det = "｜".join(it.get("facts") or []) or (it.get("desc") or "")
         if det:
             d.text((70, ty + 6), det[:44] + ("…" if len(det) > 44 else ""),
                    font=f_detail, fill=gray)
@@ -442,7 +590,8 @@ def make_poster(items, slot_dt, out_path):
 # ---------------- 文案 ----------------
 def build_tweet(items, slot_dt):
     lines = [f"⚡ Web3 Alpha 速递 | {slot_dt:%m-%d} {slot_dt:%H}点档"]
-    emoji = {"raise": "💰", "testnet": "🧪", "tge": "🚀", "btczec": "⚡", "x": "🐦", "web": "🌐"}
+    emoji = {"chain": "🆕", "raise": "💰", "testnet": "🧪", "tge": "🚀",
+             "btczec": "⚡", "x": "🐦"}
     for g, header, _ in GROUPS:
         gi = [i for i in items if i["group"] == g]
         if not gi:
@@ -455,7 +604,7 @@ def build_tweet(items, slot_dt):
     return "\n".join(lines)
 
 
-def build_desp(items, poster_url, tweet, failed):
+def build_desp(items, poster_url, tweet, failed, trending=None):
     parts = []
     if poster_url:
         parts.append(f"![海报]({poster_url})")
@@ -474,8 +623,13 @@ def build_desp(items, poster_url, tweet, failed):
             title = it.get("title_zh") or it["title"]
             line = f"- [{title}]({it['link']}) `{tm}`" if it["link"] else f"- {title} `{tm}`"
             parts.append(line)
-            if it.get("desc"):
+            if it.get("facts"):
+                parts.append(f"  > 📌 {'｜'.join(it['facts'])}")
+            elif it.get("desc"):
                 parts.append(f"  > {it['desc'][:70]}")
+    if trending:
+        parts.append("\n**🔥 当前市场热搜**")
+        parts.append("、".join(trending))
     if failed:
         parts.append(f"\n*部分源异常：{('、'.join(failed))[:60]}*")
     parts.append("\n*GitHub Actions 自动推送 · 非投资建议*")
@@ -546,6 +700,11 @@ def main():
             time.sleep(0.2)
         else:
             it["title_zh"] = it["title"]
+        if not it.get("facts"):          # 链上项目已自带事实，新闻条目做详情深挖
+            enrich(it)
+            time.sleep(0.3)
+
+    trending = fetch_trending()
 
     poster_url = None
     poster_local = os.path.join(POSTER_DIR, slot_dt.strftime("%Y-%m-%d"),
@@ -563,7 +722,7 @@ def main():
 
     tweet = build_tweet(items, slot_dt)
     desp = build_desp(items, None if poster_url == "DRY_RUN_LOCAL" else poster_url,
-                      tweet, failed)
+                      tweet, failed, trending)
     title = f"Web3 Alpha速递 {now_cst:%m-%d} {slot_dt:%H}点档"
 
     print(f"== {title} == 精选 {len(items)} 条")
@@ -584,7 +743,8 @@ def main():
 
     state["slots_done"].append(slot_key)
     state["last_push_at"] = datetime.now(CST).isoformat()
-    state["seen"] = (state["seen"] + [key_of(i["title"]) for i in items])[-SEEN_KEEP:]
+    state["seen"] = (state["seen"] + [it.get("_key") or key_of(it["title"])
+                                      for it in items])[-SEEN_KEEP:]
     save_state(state)
     try:
         gh_cleanup_posters(slot_dt.strftime("%Y-%m-%d"))

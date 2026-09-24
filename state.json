@@ -1,6 +1,5 @@
 {
  "slots_done": [
-  "2026-09-20_12",
   "2026-09-20_15",
   "2026-09-20_18",
   "2026-09-20_16",
@@ -19,9 +18,10 @@
   "2026-09-23_16",
   "2026-09-24_04",
   "2026-09-24_07",
-  "2026-09-24_10"
+  "2026-09-24_10",
+  "2026-09-24_16"
  ],
- "last_push_at": "2026-09-24T10:36:19.430903+08:00",
+ "last_push_at": "2026-09-24T16:01:47.280450+08:00",
  "seen": [
   "安全预警：darkswordios攻击程序现已被实际利用，建议用户升级最新系统-blockbeats",
   "ripplesaysassetmanagersarepreparingforxrpledger’snextpayment",
@@ -111,6 +111,12 @@
   "dex:9ubsHDCbfD6Npy5zYumme5mCCqaM8MSZ4WviTCnnSTNK",
   "dex:9rb2he5QW4ukwGnE6HMCGDxuyfUdkRoWok5VuK4weeun",
   "昨夜今晨重要资讯（9月23日-9月24日）-panews",
-  "阿根廷液化天然气项目获得美国进出口银行融资-币界网"
+  "阿根廷液化天然气项目获得美国进出口银行融资-币界网",
+  "dex:0x03E6a6881D0813bF6157ac4ee44D3Cc73d5465A3",
+  "dex:2UzYMK3WX7XcpLQ9ysMjfS8CtSE1V8poxZ1u8UnRoead",
+  "fuelmanchester2026unveils4morespeakers-businesscloud.co.uk",
+  "indiantechfundingrises7%asinvestorsbackfewer,biggerdeals-cnb",
+  "variational公布空投细则，你的积分到底值多少钱？-odaily星球日报",
+  "aweekofaicodingcutaquantum-safebitcointransactionestimatefro"
  ]
 }

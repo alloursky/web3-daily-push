@@ -1,6 +1,5 @@
 {
  "slots_done": [
-  "2026-09-20_06",
   "2026-09-20_12",
   "2026-09-20_15",
   "2026-09-20_18",
@@ -19,9 +18,10 @@
   "2026-09-23_10",
   "2026-09-23_16",
   "2026-09-24_04",
-  "2026-09-24_07"
+  "2026-09-24_07",
+  "2026-09-24_10"
  ],
- "last_push_at": "2026-09-24T08:42:09.231538+08:00",
+ "last_push_at": "2026-09-24T10:36:19.430903+08:00",
  "seen": [
   "安全预警：darkswordios攻击程序现已被实际利用，建议用户升级最新系统-blockbeats",
   "ripplesaysassetmanagersarepreparingforxrpledger’snextpayment",
@@ -107,6 +107,10 @@
   "dex:0xBf8F050409576A13FCD09ffD1B32802D66c04dbf",
   "dex:26z79ck4mfp89w3ja7XrndAshnPRbrmtmBr4hfGApump",
   "canopy(cnpy)币价，图表，市值以及其他指标-coinmarketcap",
-  "solanadextradesovertakethenyse:whattocheckonswaps,taxandover"
+  "solanadextradesovertakethenyse:whattocheckonswaps,taxandover",
+  "dex:9ubsHDCbfD6Npy5zYumme5mCCqaM8MSZ4WviTCnnSTNK",
+  "dex:9rb2he5QW4ukwGnE6HMCGDxuyfUdkRoWok5VuK4weeun",
+  "昨夜今晨重要资讯（9月23日-9月24日）-panews",
+  "阿根廷液化天然气项目获得美国进出口银行融资-币界网"
  ]
 }

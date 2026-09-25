@@ -1,6 +1,5 @@
 {
  "slots_done": [
-  "2026-09-20_16",
   "2026-09-21_04",
   "2026-09-21_07",
   "2026-09-21_10",
@@ -19,9 +18,10 @@
   "2026-09-24_10",
   "2026-09-24_16",
   "2026-09-25_04",
-  "2026-09-25_07"
+  "2026-09-25_07",
+  "2026-09-25_10"
  ],
- "last_push_at": "2026-09-25T08:19:05.340302+08:00",
+ "last_push_at": "2026-09-25T10:53:39.052092+08:00",
  "seen": [
   "安全预警：darkswordios攻击程序现已被实际利用，建议用户升级最新系统-blockbeats",
   "ripplesaysassetmanagersarepreparingforxrpledger’snextpayment",
@@ -128,6 +128,10 @@
   "dex:8JpqPbg1T29ww3Whnz9HX32PfBPzzEak8QP8cveEpump",
   "dex:2gFXezHtvP6wyXhEbaf5Biy2EAJdyV4pNFcf5g34bonk",
   "cryptoexchangebitgetsays$352millionaffectedinahack,claimsuse",
-  "solanainscriptions:artinsidethetokenitself-forbes"
+  "solanainscriptions:artinsidethetokenitself-forbes",
+  "dex:CBDx9UVSYoWFXtqMZyq79rbueruVjwAkJ7aJYpDqpump",
+  "dex:Anda6uKnJcbzTimJtqhufWJ61JmsdQqYJVTNjVkGmkKd",
+  "bitgetceosuspectsnorthkoreabehind$352mhack,citingipclues",
+  "blockbringsbitcoinlightningpaymentstox402foraiagents"
  ]
 }

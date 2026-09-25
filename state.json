@@ -1,6 +1,5 @@
 {
  "slots_done": [
-  "2026-09-20_18",
   "2026-09-20_16",
   "2026-09-21_04",
   "2026-09-21_07",
@@ -19,9 +18,10 @@
   "2026-09-24_07",
   "2026-09-24_10",
   "2026-09-24_16",
-  "2026-09-25_04"
+  "2026-09-25_04",
+  "2026-09-25_07"
  ],
- "last_push_at": "2026-09-25T05:57:10.178025+08:00",
+ "last_push_at": "2026-09-25T08:19:05.340302+08:00",
  "seen": [
   "安全预警：darkswordios攻击程序现已被实际利用，建议用户升级最新系统-blockbeats",
   "ripplesaysassetmanagersarepreparingforxrpledger’snextpayment",
@@ -124,6 +124,10 @@
   "一家机器人数据公司关门，创始人复盘：卖数据撑不起一家独立公司-搜狐网",
   "geniusterminal联创回应s2积分争议：规则可调整，个人代币不先于用户解锁-blockbeats",
   "bitgetconfirms$351msecuritybreach,suspendswithdrawals",
-  "bitcoinjusttoppedakeylong-termmovingaverage.here'swhatitmigh"
+  "bitcoinjusttoppedakeylong-termmovingaverage.here'swhatitmigh",
+  "dex:8JpqPbg1T29ww3Whnz9HX32PfBPzzEak8QP8cveEpump",
+  "dex:2gFXezHtvP6wyXhEbaf5Biy2EAJdyV4pNFcf5g34bonk",
+  "cryptoexchangebitgetsays$352millionaffectedinahack,claimsuse",
+  "solanainscriptions:artinsidethetokenitself-forbes"
  ]
 }

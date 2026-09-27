@@ -1,6 +1,5 @@
 {
  "slots_done": [
-  "2026-09-23_04",
   "2026-09-23_07",
   "2026-09-23_10",
   "2026-09-23_16",
@@ -19,9 +18,10 @@
   "2026-09-27_04",
   "2026-09-27_07",
   "2026-09-27_10",
-  "2026-09-27_16"
+  "2026-09-27_16",
+  "2026-09-28_04"
  ],
- "last_push_at": "2026-09-27T17:06:44.946962+08:00",
+ "last_push_at": "2026-09-28T05:50:38.760180+08:00",
  "seen": [
   "安全预警：darkswordios攻击程序现已被实际利用，建议用户升级最新系统-blockbeats",
   "ripplesaysassetmanagersarepreparingforxrpledger’snextpayment",
@@ -168,6 +168,12 @@
   "分析师：币安上87%山寨币已站上200日均线，8月时仅约20%-odaily.news",
   "dex:0xecde2c0ddd8da7a3fa2fe9f420b56de3abed7f5c",
   "dex:4kNaq23LoL62kGiPZ2PSkNrpVWhvwAkfowpxyCNq9aBD",
-  "toncoinisnowgram:whatthetelegramwalletchangesforholders-cryp"
+  "toncoinisnowgram:whatthetelegramwalletchangesforholders-cryp",
+  "dex:0xdDDF7AB756C35b4d0537825497e6932780710241",
+  "dex:0x255Cf35cc469FfA9B5c74A721e899380834e90cF",
+  "iitdelhigraduatesraise$1millionforbyteask-theamericanbazaar",
+  "coinstocknewstoday|earnings,events&pricealerts-intellectiaai",
+  "binance2026年代币下架速度加快，fdv与oi指标预示退市风险-币界网",
+  "bitcoin'squantumproblem:threewaysresearchersaretryingtofixit"
  ]
 }

@@ -1,6 +1,5 @@
 {
  "slots_done": [
-  "2026-09-22_10",
   "2026-09-22_16",
   "2026-09-22_16",
   "2026-09-23_04",
@@ -19,9 +18,10 @@
   "2026-09-26_07",
   "2026-09-26_10",
   "2026-09-26_16",
-  "2026-09-27_04"
+  "2026-09-27_04",
+  "2026-09-27_07"
  ],
- "last_push_at": "2026-09-27T05:48:42.798816+08:00",
+ "last_push_at": "2026-09-27T08:12:23.651494+08:00",
  "seen": [
   "安全预警：darkswordios攻击程序现已被实际利用，建议用户升级最新系统-blockbeats",
   "ripplesaysassetmanagersarepreparingforxrpledger’snextpayment",
@@ -158,6 +158,9 @@
   "吴说每日精选加密新闻+吴说每周精选：新闻top10与热门文章-wublock123.com",
   "typesafeaiseeks$1binfundingasjevmodelgainstraction-cryptobri",
   "bitgethackermoves$83millioninstolenxrpthatripplecannotfreeze",
-  "bitcoinetfsnotchseven-daywinningstreakas2026flowsturngreen"
+  "bitcoinetfsnotchseven-daywinningstreakas2026flowsturngreen",
+  "dex:0x692C8D95d78f4D709Bb14e9Aa1AAcB47f320935b",
+  "dex:GfFhizh58bfot9FpwB1qKHsXBMpPC91JVttbTBZTNGVd",
+  "grokbot现可连接用户银行、信用卡及投资账户-odaily星球日报"
  ]
 }

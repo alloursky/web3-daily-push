@@ -1,6 +1,5 @@
 {
  "slots_done": [
-  "2026-09-23_10",
   "2026-09-23_16",
   "2026-09-24_04",
   "2026-09-24_07",
@@ -19,9 +18,10 @@
   "2026-09-27_10",
   "2026-09-27_16",
   "2026-09-28_04",
-  "2026-09-28_07"
+  "2026-09-28_07",
+  "2026-09-28_10"
  ],
- "last_push_at": "2026-09-28T08:17:16.643407+08:00",
+ "last_push_at": "2026-09-28T10:58:40.105373+08:00",
  "seen": [
   "安全预警：darkswordios攻击程序现已被实际利用，建议用户升级最新系统-blockbeats",
   "ripplesaysassetmanagersarepreparingforxrpledger’snextpayment",
@@ -177,6 +177,9 @@
   "bitcoin'squantumproblem:threewaysresearchersaretryingtofixit",
   "dex:B5yWXR3PZeRuEDs7P55SBgyZEiVu3Ak7k3uWmYLdpump",
   "dex:DBorvZYRJMBHqrYGaVaLMhiRkQWe6BwP1Rth7SGysk6Q",
-  "thorchainunderfireoverbitget,ethevolvesbeyondblockchain:hodl"
+  "thorchainunderfireoverbitget,ethevolvesbeyondblockchain:hodl",
+  "dex:4UMfNn34DQVnhh6TphH4dGYYuJWuVskq5mKNZ4ZMpump",
+  "dex:0x4343e6dc91eda0a18c8e845d3ef5a8f3b8df3b85",
+  "charleshoskinson指出，midnight将凭借跨链defi超越zcash-tradersunion"
  ]
 }

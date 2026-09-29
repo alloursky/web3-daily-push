@@ -1,6 +1,5 @@
 {
  "slots_done": [
-  "2026-09-24_07",
   "2026-09-24_10",
   "2026-09-24_16",
   "2026-09-25_04",
@@ -19,9 +18,10 @@
   "2026-09-28_07",
   "2026-09-28_10",
   "2026-09-28_16",
-  "2026-09-29_07"
+  "2026-09-29_07",
+  "2026-09-29_10"
  ],
- "last_push_at": "2026-09-29T07:41:36.034128+08:00",
+ "last_push_at": "2026-09-29T11:39:12.910403+08:00",
  "seen": [
   "安全预警：darkswordios攻击程序现已被实际利用，建议用户升级最新系统-blockbeats",
   "ripplesaysassetmanagersarepreparingforxrpledger’snextpayment",
@@ -192,6 +192,12 @@
   "modallabsnears$750mfundingroundat$16bvaluation-cryptobriefin",
   "metaelevatestuckerboundstoheadcommunicationsasdavidginsbergs",
   "我们或许等不到polymarket发币了-blockbeats",
-  "thorchainrejectsbitgetrequesttoblockhackeras$6millionmovesto"
+  "thorchainrejectsbitgetrequesttoblockhackeras$6millionmovesto",
+  "dex:GCoLPdAkVPygt8zgbMa3pmL3MGGwZRu3G6nY5H1ppump",
+  "dex:J9edHggKBgcE6psJSDxB9mML7MyoV22KUCndW1Lipump",
+  "peakxvraisessurgeseedcapto$5m,backs18newstartups-thetechbuzz",
+  "peakxvraisessurgeseedinvestmentceiling,unveils18-startupcoho",
+  "nearintentssaysitblocked$50mtiedtobitgethackers",
+  "solanaalpenglow:nomainnetlaunchonseptember28-cryptoticker"
  ]
 }

@@ -1,6 +1,5 @@
 {
  "slots_done": [
-  "2026-09-24_10",
   "2026-09-24_16",
   "2026-09-25_04",
   "2026-09-25_07",
@@ -19,9 +18,10 @@
   "2026-09-28_10",
   "2026-09-28_16",
   "2026-09-29_07",
-  "2026-09-29_10"
+  "2026-09-29_10",
+  "2026-09-29_16"
  ],
- "last_push_at": "2026-09-29T11:39:12.910403+08:00",
+ "last_push_at": "2026-09-29T18:18:28.848906+08:00",
  "seen": [
   "安全预警：darkswordios攻击程序现已被实际利用，建议用户升级最新系统-blockbeats",
   "ripplesaysassetmanagersarepreparingforxrpledger’snextpayment",
@@ -198,6 +198,11 @@
   "peakxvraisessurgeseedcapto$5m,backs18newstartups-thetechbuzz",
   "peakxvraisessurgeseedinvestmentceiling,unveils18-startupcoho",
   "nearintentssaysitblocked$50mtiedtobitgethackers",
-  "solanaalpenglow:nomainnetlaunchonseptember28-cryptoticker"
+  "solanaalpenglow:nomainnetlaunchonseptember28-cryptoticker",
+  "dex:0xf79a5d3C2f302bC794ec3cD26BC36792e4F50DD0",
+  "dex:JtnSFxvgNbh6Pvo9zFQ4nHmskCv6U6JWdCY8bfDLpsH",
+  "paediatrichealth-techstartupprimerryraisesrs7.1crinpre-seedr",
+  "nearintentsblocks$50millioninbitgethackerswaps,here'swhathap",
+  "liveupdates:bitcoinreboundsabove$84,000astreasuryyieldsstead"
  ]
 }

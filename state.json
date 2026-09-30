@@ -1,6 +1,5 @@
 {
  "slots_done": [
-  "2026-09-25_10",
   "2026-09-25_16",
   "2026-09-26_04",
   "2026-09-26_07",
@@ -19,9 +18,10 @@
   "2026-09-29_16",
   "2026-09-30_04",
   "2026-09-30_07",
-  "2026-09-30_10"
+  "2026-09-30_10",
+  "2026-09-30_16"
  ],
- "last_push_at": "2026-09-30T11:25:29.232614+08:00",
+ "last_push_at": "2026-09-30T17:54:35.778724+08:00",
  "seen": [
   "安全预警：darkswordios攻击程序现已被实际利用，建议用户升级最新系统-blockbeats",
   "ripplesaysassetmanagersarepreparingforxrpledger’snextpayment",
@@ -214,6 +214,13 @@
   "dex:0x2818fd994D95735f44d52C20267802Cbf1FBb6F7",
   "destroairaises$8minseedfundingtocoordinatewarehouserobotflee",
   "dex:6FGnCoQQWmZUQuEgLV4Wtdhw9mLRwi6g5Q4rLS2ipump",
-  "dex:WApCdQftZcRUNHN9S2XvmrqeRtRASE3EZxnwuNJpump"
+  "dex:WApCdQftZcRUNHN9S2XvmrqeRtRASE3EZxnwuNJpump",
+  "dex:J7zm13RKVzANVzdVifhWcvYdZNdgmMV3TpJKPNZcjXcQ",
+  "dex:dragon-3.nearlytrade.near",
+  "kalshiinadvancedtalkstoraisenewfundingat$40bvaluation:reuter",
+  "shivankkumar——加密档案、项目与融资轮次-cryptorank",
+  "热门交互合集|primuslabs多维度任务；termix上线新积分任务（9月30日）-odaily星球日报",
+  "币安alpha将在9月30日首发上线concrete(ct)-tradingview",
+  "winklevoss-ownedgeminiswitcheszcashsoftwareaheadoffaster25-s"
  ]
 }

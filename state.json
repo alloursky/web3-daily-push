@@ -1,6 +1,5 @@
 {
  "slots_done": [
-  "2026-09-25_04",
   "2026-09-25_07",
   "2026-09-25_10",
   "2026-09-25_16",
@@ -19,9 +18,10 @@
   "2026-09-29_07",
   "2026-09-29_10",
   "2026-09-29_16",
-  "2026-09-30_04"
+  "2026-09-30_04",
+  "2026-09-30_07"
  ],
- "last_push_at": "2026-09-30T06:50:01.375663+08:00",
+ "last_push_at": "2026-09-30T09:49:36.014998+08:00",
  "seen": [
   "安全预警：darkswordios攻击程序现已被实际利用，建议用户升级最新系统-blockbeats",
   "ripplesaysassetmanagersarepreparingforxrpledger’snextpayment",
@@ -209,6 +209,9 @@
   "kalshi洽谈约10亿美元新融资，估值约400亿美元-吴说区块链-t.co",
   "稳定币支付新贵jeeves完成1.1亿美元c轮融资，coinfund领投，剑指稳定币钱包与ai代理-区块周刊blockw",
   "山寨币涨势持续：cryptoquant发出警告！-区块链文库-5m88.com",
-  "bitcoinsurgingto$100,000maybeinplay,afteroutperforminggold"
+  "bitcoinsurgingto$100,000maybeinplay,afteroutperforminggold",
+  "dex:0xb274622368B9518aE02129DE5A67Bf9A3449F861",
+  "dex:0x2818fd994D95735f44d52C20267802Cbf1FBb6F7",
+  "destroairaises$8minseedfundingtocoordinatewarehouserobotflee"
  ]
 }

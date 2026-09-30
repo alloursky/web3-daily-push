@@ -1,6 +1,5 @@
 {
  "slots_done": [
-  "2026-09-25_07",
   "2026-09-25_10",
   "2026-09-25_16",
   "2026-09-26_04",
@@ -19,9 +18,10 @@
   "2026-09-29_10",
   "2026-09-29_16",
   "2026-09-30_04",
-  "2026-09-30_07"
+  "2026-09-30_07",
+  "2026-09-30_10"
  ],
- "last_push_at": "2026-09-30T09:49:36.014998+08:00",
+ "last_push_at": "2026-09-30T11:25:29.232614+08:00",
  "seen": [
   "安全预警：darkswordios攻击程序现已被实际利用，建议用户升级最新系统-blockbeats",
   "ripplesaysassetmanagersarepreparingforxrpledger’snextpayment",
@@ -212,6 +212,8 @@
   "bitcoinsurgingto$100,000maybeinplay,afteroutperforminggold",
   "dex:0xb274622368B9518aE02129DE5A67Bf9A3449F861",
   "dex:0x2818fd994D95735f44d52C20267802Cbf1FBb6F7",
-  "destroairaises$8minseedfundingtocoordinatewarehouserobotflee"
+  "destroairaises$8minseedfundingtocoordinatewarehouserobotflee",
+  "dex:6FGnCoQQWmZUQuEgLV4Wtdhw9mLRwi6g5Q4rLS2ipump",
+  "dex:WApCdQftZcRUNHN9S2XvmrqeRtRASE3EZxnwuNJpump"
  ]
 }

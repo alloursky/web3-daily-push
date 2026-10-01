@@ -1,6 +1,5 @@
 {
  "slots_done": [
-  "2026-09-26_10",
   "2026-09-26_16",
   "2026-09-27_04",
   "2026-09-27_07",
@@ -19,9 +18,10 @@
   "2026-09-30_16",
   "2026-10-01_04",
   "2026-10-01_07",
-  "2026-10-01_10"
+  "2026-10-01_10",
+  "2026-10-01_16"
  ],
- "last_push_at": "2026-10-01T11:31:05.808364+08:00",
+ "last_push_at": "2026-10-01T18:38:41.767248+08:00",
  "seen": [
   "安全预警：darkswordios攻击程序现已被实际利用，建议用户升级最新系统-blockbeats",
   "ripplesaysassetmanagersarepreparingforxrpledger’snextpayment",
@@ -235,6 +235,13 @@
   "币安创始人cz谈ftx、hyperliquid与1011事件-吴说",
   "dex:D56qroyGQekwVX99CSvNzRmag8eUNGSZbHa4EG7zkEc9",
   "dex:92z4XTZppdYRZZsnXJdUPca9h5mFjGWWgGxAVT8jpump",
-  "比特币铭文总量突破3300万枚：galaxy深度报告拆解ordinals成熟之路与手续费真相-区块周刊blockweek"
+  "比特币铭文总量突破3300万枚：galaxy深度报告拆解ordinals成熟之路与手续费真相-区块周刊blockweek",
+  "dex:0x35985EB91A78Bf5110d32AF0DB8f1256d19e7777",
+  "dex:6pX9txbsqfG73o91BHpJq1JxM1gZyn5XgtbXVfHMpump",
+  "由学生主导的dormroomfund募集5000万美元，支持高校ai与创业者-cryptorank",
+  "launchubventuresholds€65mfirstcloseforfundiiitobackceepre-se",
+  "dogecoingetsdefitestnetasdogeosbetsminerswilleventuallysecur",
+  "metamaskexitslidovalidatorsamidinfrastructure‘securityincide",
+  "citigroupraises12-monthbitcointargetto$113,000asetfinflowsre"
  ]
 }

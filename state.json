@@ -1,6 +1,5 @@
 {
  "slots_done": [
-  "2026-09-26_07",
   "2026-09-26_10",
   "2026-09-26_16",
   "2026-09-27_04",
@@ -19,9 +18,10 @@
   "2026-09-30_10",
   "2026-09-30_16",
   "2026-10-01_04",
-  "2026-10-01_07"
+  "2026-10-01_07",
+  "2026-10-01_10"
  ],
- "last_push_at": "2026-10-01T09:47:59.065023+08:00",
+ "last_push_at": "2026-10-01T11:31:05.808364+08:00",
  "seen": [
   "安全预警：darkswordios攻击程序现已被实际利用，建议用户升级最新系统-blockbeats",
   "ripplesaysassetmanagersarepreparingforxrpledger’snextpayment",
@@ -232,6 +232,9 @@
   "dex:Db8BtY9YkieMAN9CP7XupGFCvh7XED9CjWKnDoc2pump",
   "dex:2g6nd2W3ELQtKdDU5E6satzB9En2t2gcyDvzamL9G7Sw",
   "solanacompany溢价5%完成1500万美元融资将用于增持sol或回购股票-吴说区块链-t.co",
-  "币安创始人cz谈ftx、hyperliquid与1011事件-吴说"
+  "币安创始人cz谈ftx、hyperliquid与1011事件-吴说",
+  "dex:D56qroyGQekwVX99CSvNzRmag8eUNGSZbHa4EG7zkEc9",
+  "dex:92z4XTZppdYRZZsnXJdUPca9h5mFjGWWgGxAVT8jpump",
+  "比特币铭文总量突破3300万枚：galaxy深度报告拆解ordinals成熟之路与手续费真相-区块周刊blockweek"
  ]
 }

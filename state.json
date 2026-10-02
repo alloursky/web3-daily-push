@@ -1,6 +1,5 @@
 {
  "slots_done": [
-  "2026-09-27_07",
   "2026-09-27_10",
   "2026-09-27_16",
   "2026-09-28_04",
@@ -19,9 +18,10 @@
   "2026-10-01_10",
   "2026-10-01_16",
   "2026-10-02_04",
-  "2026-10-02_10"
+  "2026-10-02_10",
+  "2026-10-02_16"
  ],
- "last_push_at": "2026-10-02T10:06:27.554601+08:00",
+ "last_push_at": "2026-10-02T18:13:45.815892+08:00",
  "seen": [
   "安全预警：darkswordios攻击程序现已被实际利用，建议用户升级最新系统-blockbeats",
   "ripplesaysassetmanagersarepreparingforxrpledger’snextpayment",
@@ -251,6 +251,12 @@
   "dex:FNbtV3rqcZWM8m6chLHXZaUNniTX9ZWNsfQd48oUhoLc",
   "dex:0xf7e98ED773dBD2BB3f2caEC31E08f81b74d787C2",
   "volantisraises$88mseriesatoattacktheaimemorybottleneckwithli",
-  "量子计算机10年内破解比特币？分析称证据不足-디지털투데이"
+  "量子计算机10年内破解比特币？分析称证据不足-디지털투데이",
+  "dex:0x59CA02B16aC37aCC04A350301C592153ee877777",
+  "dex:0x9e795209BE691654Fb908AB86B3a651551939E16",
+  "9月vc月报：融资额环比大增逾71%，polymarket获donaldtrumpjr.公司投资3亿美元后估值210亿-",
+  "globalpaymentsinfrastartupwalapayraises$4.6mseedforlast-mile",
+  "dogecoinpriceprediction:defitestnetandhashrateslump-cryptoti",
+  "whyrisingperpetualfundingratessignalgrowingbullishleverageas"
  ]
 }

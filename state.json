@@ -1,6 +1,5 @@
 {
  "slots_done": [
-  "2026-09-27_10",
   "2026-09-27_16",
   "2026-09-28_04",
   "2026-09-28_07",
@@ -19,9 +18,10 @@
   "2026-10-01_16",
   "2026-10-02_04",
   "2026-10-02_10",
-  "2026-10-02_16"
+  "2026-10-02_16",
+  "2026-10-03_04"
  ],
- "last_push_at": "2026-10-02T18:13:45.815892+08:00",
+ "last_push_at": "2026-10-03T06:48:44.075966+08:00",
  "seen": [
   "安全预警：darkswordios攻击程序现已被实际利用，建议用户升级最新系统-blockbeats",
   "ripplesaysassetmanagersarepreparingforxrpledger’snextpayment",
@@ -257,6 +257,12 @@
   "9月vc月报：融资额环比大增逾71%，polymarket获donaldtrumpjr.公司投资3亿美元后估值210亿-",
   "globalpaymentsinfrastartupwalapayraises$4.6mseedforlast-mile",
   "dogecoinpriceprediction:defitestnetandhashrateslump-cryptoti",
-  "whyrisingperpetualfundingratessignalgrowingbullishleverageas"
+  "whyrisingperpetualfundingratessignalgrowingbullishleverageas",
+  "dex:E81BGCpweocddeyupAi1ugbjhgdD9cdYjRA7RNpHpump",
+  "dex:0x27d69706eab7c02b8955e8224d0f2989437cdc26",
+  "全球支付基础设施初创公司walapay融资460万美元种子轮，用于构建跨境支付最后一公里通道-cryptorank",
+  "ripcars向dba、novora和anaskhader完成47.5万美元cars场外代币出售-cryptorank",
+  "今日changxinmemorytechnologies(derivatives)价格｜cxmt的实时价格、图表和市场数",
+  "thorchain：zec流动性池上线，原生zcash交易将进入下一阶段-cryptorank"
  ]
 }

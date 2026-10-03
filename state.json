@@ -1,6 +1,5 @@
 {
  "slots_done": [
-  "2026-09-28_04",
   "2026-09-28_07",
   "2026-09-28_10",
   "2026-09-28_16",
@@ -19,9 +18,10 @@
   "2026-10-02_10",
   "2026-10-02_16",
   "2026-10-03_04",
-  "2026-10-03_07"
+  "2026-10-03_07",
+  "2026-10-03_10"
  ],
- "last_push_at": "2026-10-03T09:43:02.764921+08:00",
+ "last_push_at": "2026-10-03T11:15:38.520430+08:00",
  "seen": [
   "安全预警：darkswordios攻击程序现已被实际利用，建议用户升级最新系统-blockbeats",
   "ripplesaysassetmanagersarepreparingforxrpledger’snextpayment",
@@ -266,6 +266,9 @@
   "thorchain：zec流动性池上线，原生zcash交易将进入下一阶段-cryptorank",
   "dex:GWGUDFY1dDxQoAMsWfg6zfhvYNF1toKPHMVT3DFBwMJq",
   "dex:0xCB142bcA82c9c852Ef33c5100a6F26577aD40F3C",
-  "blastwindsdownitsl2ascostsoutrunrevenue,testingrollupeconomi"
+  "blastwindsdownitsl2ascostsoutrunrevenue,testingrollupeconomi",
+  "dex:7MxLJtA8pfx7UwQLzPUCj3vpcg3hoQrEsX9eVnSBpump",
+  "dex:CvrAsRC8K9LasESboDDcX7JwPAU9Az7Ta8patYUCff1g",
+  "blast宣布关停：空投买来的tvl，为什么养不活一条链？-techflowpost.com"
  ]
 }

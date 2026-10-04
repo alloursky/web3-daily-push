@@ -1,6 +1,5 @@
 {
  "slots_done": [
-  "2026-09-29_10",
   "2026-09-29_16",
   "2026-09-30_04",
   "2026-09-30_07",
@@ -19,9 +18,10 @@
   "2026-10-03_16",
   "2026-10-04_04",
   "2026-10-04_07",
-  "2026-10-04_10"
+  "2026-10-04_10",
+  "2026-10-04_16"
  ],
- "last_push_at": "2026-10-04T11:43:39.621966+08:00",
+ "last_push_at": "2026-10-04T18:20:51.438831+08:00",
  "seen": [
   "安全预警：darkswordios攻击程序现已被实际利用，建议用户升级最新系统-blockbeats",
   "ripplesaysassetmanagersarepreparingforxrpledger’snextpayment",
@@ -287,6 +287,11 @@
   "dex:5ZQESNKSYRk68Qo9rSRomVC4WnmUquT4mtaNM3tKpump",
   "dex:GSNjgTo8moE4xsFwoom94MFQsphJE7oSdKgbhGZUpump",
   "blast关停：一个空投驱动的l2，没能熬过“后空投时代”-区块周刊blockweeks",
-  "secclearssix3xleveragedbitcoinandetheretps:howtocheckthedail"
+  "secclearssix3xleveragedbitcoinandetheretps:howtocheckthedail",
+  "dex:9HdjHymM9nDRfYANhDhXTR1vEqKomDdPvf6wJc88RCUg",
+  "dex:G61m2tk6saUCSmt8Y32ossk9T6tVGv5gnjJ1UuQwwCzQ",
+  "indiaipodailymarket&ipoupdates|4thoctober2026-indiaipo",
+  "blast关停：22亿「搬」来的tvl，撑不起零造血的l2-odaily星球日报",
+  "elsalvadorreceives$138millionfromimfafterbitcoinwaiversgrant"
  ]
 }

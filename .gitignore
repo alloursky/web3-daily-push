@@ -1,3 +1,7 @@
 .sendkey
 run_logs/
 run_logs.zip
+font.ttf
+posters/
+__pycache__/
+_diag/

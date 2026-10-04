@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Web3 Alpha 速递（GitHub Actions 云端版 v3）
+Web3 Alpha 速递（GitHub Actions 云端版 v3.3）
 - 每天北京时间 4 / 7 / 10 / 13 / 16 点五档推送（对冲 GitHub 定时延迟，
   实际到达约 6 / 9 / 12 / 15 / 18 点）
 - 每档只推上一档之后的新消息；状态存 state.json，经 GitHub API 回写仓库
@@ -30,7 +30,7 @@ FALLBACK_WINDOW = 3.5
 OVERLAP_MIN = 10
 MAX_PER_SOURCE = 6
 SEEN_KEEP = 300
-TOTAL_CAP = 8                            # 每档精选总条数上限
+TOTAL_CAP = 10                           # 每档精选总条数上限
 
 SENDKEY = os.environ.get("SERVERCHAN_SENDKEY", "")
 SENDKEY_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".sendkey")
@@ -68,13 +68,20 @@ def gn(q, zh=True):
 
 
 FEEDS = [
-    # ---- 直连稳定源（主通道，不依赖 Google）----
+    # ---- 中文直连主通道（时效最好，带准确 pubDate）----
+    dict(group="web", name="ChainCatcher", url="https://www.chaincatcher.com/rss.xml"),
+    dict(group="web", name="BlockBeats", url="https://rss.theblockbeats.info/flash"),
+    dict(group="web", name="PANews", url="https://rss.panewslab.com/zh/whatsnew"),
+    # ---- 英文直连 ----
     dict(group="web", name="CoinDesk", url="https://www.coindesk.com/arc/outboundfeeds/rss/"),
     dict(group="web", name="Cointelegraph", url="https://cointelegraph.com/rss"),
     dict(group="web", name="Decrypt", url="https://decrypt.co/feed"),
-    dict(group="x", name="X·BlockBeats", url="https://rss.theblockbeats.info/flash"),
-    dict(group="x", name="X·PANews", url="https://rss.panewslab.com/zh/whatsnew"),
-    # ---- Google News 定向查询（补充通道，全部限定最近1天）----
+    dict(group="web", name="TheBlock", url="https://www.theblock.co/rss.xml"),
+    dict(group="web", name="DLNews", url="https://www.dlnews.com/arc/outboundfeeds/rss/"),
+    # ---- BTC 生态专属通道（对标参考账号的主线）----
+    dict(group="btczec", name="CT·Bitcoin", url="https://cointelegraph.com/rss/tag/bitcoin"),
+    dict(group="btczec", name="BitcoinOps", url="https://bitcoinops.org/feed.xml"),
+    # ---- Google News 定向补充（仅作关键词路由素材，不入「行业要闻」）----
     dict(group="raise", name="融资·中文",
          url=gn("加密 项目 完成 融资 种子轮 OR 领投 OR 战略轮 when:1d")),
     dict(group="raise", name="融资·英文",
@@ -87,32 +94,37 @@ FEEDS = [
          url=gn("TGE OR 代币生成 OR 快照 OR 积分 空投 when:1d")),
     dict(group="tge", name="新上币",
          url=gn("Binance Alpha OR 币安Alpha OR 新池 OR 上币 when:1d")),
-    dict(group="btczec", name="BTC生态",
-         url=gn("比特币生态 OR runes OR ordinals OR 比特币L2 when:1d")),
+    dict(group="btczec", name="BTC铭文",
+         url=gn("比特币 铭文 OR 符文 OR BRC-20 OR Alkanes OR Ordinals 铸造 上线 when:1d")),
     dict(group="btczec", name="ZEC生态",
          url=gn("Zcash OR ZEC 生态 OR 升级 OR 融资 when:1d")),
-    dict(group="btczec", name="BTC·英文",
-         url=gn("bitcoin L2 OR runes OR ordinals launch when:1d", zh=False)),
     dict(group="x", name="X·KOL热议",
          url=gn("推特 KOL 加密货币 OR web3 OR 代币 喊单 when:1d")),
 ]
 
 GROUPS = [
-    ("chain", "🆕 链上新项目", 2),
-    ("raise", "💰 早期融资雷达", 2),
-    ("testnet", "🧪 测试网与撸毛", 1),
+    ("btczec", "⚡ BTC 生态", 3),
+    ("news", "🌐 行业要闻", 2),
+    ("raise", "💰 早期融资雷达", 1),
     ("tge", "🚀 预TGE与新上币", 1),
-    ("btczec", "⚡ BTC/ZEC 生态", 1),
+    ("testnet", "🧪 测试网与撸毛", 1),
+    ("chain", "🆕 链上新项目", 1),
     ("x", "🐦 X/推特风向", 1),
 ]
-CHIP_LABEL = {"chain": "链上新项目", "raise": "早期融资", "testnet": "测试网撸毛",
-              "tge": "预TGE/新币", "btczec": "BTC/ZEC", "x": "X风向"}
-CHIP_COLOR = {"chain": (236, 72, 153), "raise": (245, 158, 11), "testnet": (16, 185, 129),
-              "tge": (139, 92, 246), "btczec": (247, 147, 26), "x": (56, 189, 248)}
+CHIP_LABEL = {"btczec": "BTC生态", "news": "行业要闻", "raise": "早期融资",
+              "testnet": "测试网撸毛", "tge": "预TGE/新币", "chain": "链上新项目",
+              "x": "X风向"}
+CHIP_COLOR = {"btczec": (247, 147, 26), "news": (148, 163, 184), "chain": (236, 72, 153),
+              "raise": (245, 158, 11), "testnet": (16, 185, 129), "tge": (139, 92, 246),
+              "x": (56, 189, 248)}
 
 # 关键词路由（优先级：BTCZEC > TGE > 测试网 > 融资 > 默认）
+# BTC 生态是主线（对标 @CG_BRC20 的「饼子热点整理」体例）
 BTCZEC_KW = ["比特币", "bitcoin", "btc", "符文", "铭文", "runes", "ordinals",
-             "brc-20", "ordinal", "zec", "zcash"]
+             "brc-20", "brc20", "ordinal", "zec", "zcash", "alkanes", "brc-420",
+             "src-20", "arc-20", "atomicals", "stacks", "bitvm", "taproot",
+             "inscription", "unisat", "铭刻", "序数", "比特币l2", "比特币二层",
+             "币安链上", "btc生态", "ordinals生态"]
 TGE_KW = ["tge", "代币生成", "快照", "snapshot", "上币", "listing",
           "binance alpha", "币安alpha", "launchpad", "ido", "发射"]
 TESTNET_KW = ["测试网", "testnet", "交互", "quest", "积分", "points", "撸毛", "领水"]
@@ -131,6 +143,46 @@ def route(default_group, title):
     if any(k in t for k in RAISE_KW):
         return "raise"
     return default_group
+
+
+# ---- 噪音过滤：Google News 常把「印度IPO」「美股财报」这类无关文章塞进来 ----
+_RELEVANT_KW = ["bitcoin", "btc", "crypto", "web3", "blockchain", "token", "defi", "nft",
+                "stablecoin", "ethereum", "eth", "solana", "airdrop", "mainnet", "testnet",
+                "ordinals", "runes", "brc-20", "brc20", "alkanes", "inscription", "ordinal",
+                "meme", "rwa", "dex", "cex", "layer2", "l2", "rollup", "staking", "validator",
+                "加密货币", "加密", "区块链", "代币", "空投", "稳定币", "以太坊", "比特币",
+                "铭文", "符文", "铭刻", "链上", "交易所", "钱包", "矿工", "挖矿", "质押",
+                "主网", "测试网", "山寨币", "币安", "欧易", "销毁", "清算", "链游"]
+_STRONG_KW = ["bitcoin", "btc", "crypto", "web3", "blockchain", "token", "ethereum",
+              "solana", "airdrop", "加密货币", "加密", "区块链", "代币", "空投", "比特币",
+              "以太坊", "铭文", "符文", "链上", "稳定币", "nft", "defi", "稳定币"]
+_NOISE_KW = ["ipo", "a股", "美股", "港股", "股市", "股票", "财报", "券商", "基金",
+             "楼市", "房地产", "原油", "黄金价格", "关税", "选举", "足球", "nba",
+             "新股申购", "上市公司", "保险", "银行股"]
+# 行情播报类噪音：参考账号给的是「项目动态」，不是「巨鲸转了 0.001 枚 BTC」
+_NOISE_PAT = ["多空比", "持仓量", "资金费率", "未平仓", "涨幅榜", "跌幅榜",
+              "价格预测", "今日价格", "行情播报", "24小时涨", "巨鲸", "转入交易所",
+              "转出交易所", "链上监测", "whale alert", "price prediction", "how to buy",
+              "price forecast", "what is ", "top 5 ", "top 10 ", "best crypto",
+              "一周预告", "周前瞻", "本周前瞻", "week ahead", "weekly preview"]
+_NOISE_DOMAIN = ["528btc", "thaicrypto", "coingabbar", "protraderdaily", "defisummary",
+                 "tapbit", "bitrue.com/blog", "beincrypto.com/price", "cryptonews.com/price"]
+
+
+def is_relevant(title, desc="", link=""):
+    """标题/摘要必须含加密相关词；排除股市噪音与行情播报类快讯。"""
+    t = (title or "").lower()
+    blob = t + " " + (desc or "").lower()
+    if not any(k in blob for k in _RELEVANT_KW):
+        return False
+    if any(k in t for k in _NOISE_KW) and not any(k in t for k in _STRONG_KW):
+        return False
+    if any(p in t for p in _NOISE_PAT):
+        return False
+    low_link = (link or "").lower()
+    if any(d in low_link for d in _NOISE_DOMAIN):
+        return False
+    return True
 
 
 # ---------------- GitHub API ----------------
@@ -153,7 +205,12 @@ def gh_api(path, method="GET", data=None, ok404=False):
 
 
 def gh_upload(path, local_path, message):
-    """上传文件到仓库（存在则覆盖），返回 raw URL。"""
+    """上传文件到仓库（存在则覆盖），返回国内可达的 CDN 链接。
+
+    注意：raw.githubusercontent.com 在国内被墙，微信内置浏览器必然裂图，
+    所以对外一律用 jsDelivr（国内多数网络可直连）。优先按 commit SHA 引用，
+    避免分支引用被 CDN 缓存 12 小时导致新图 404。
+    """
     if not (REPO and GH_TOKEN):
         return None
     content = base64.b64encode(open(local_path, "rb").read()).decode()
@@ -164,16 +221,24 @@ def gh_upload(path, local_path, message):
     body = {"message": message, "content": content, "branch": "main"}
     if sha:
         body["sha"] = sha
-    gh_api(f"/repos/{REPO}/contents/{urllib.parse.quote(path)}", "PUT", body)
-    return f"https://raw.githubusercontent.com/{REPO}/main/{urllib.parse.quote(path)}"
+    resp = gh_api(f"/repos/{REPO}/contents/{urllib.parse.quote(path)}", "PUT", body) or {}
+    q = urllib.parse.quote(path)
+    commit_sha = ((resp.get("commit") or {}).get("sha") or "")[:12]
+    if commit_sha:
+        return f"https://cdn.jsdelivr.net/gh/{REPO}@{commit_sha}/{q}"
+    return f"https://cdn.jsdelivr.net/gh/{REPO}@main/{q}"
 
 
 def gh_cleanup_posters(keep_date):
-    """删除 7 天前的海报目录，防止仓库无限膨胀。"""
+    """删除 30 天前的海报目录，防止仓库无限膨胀。
+
+    保留期从 7 天放宽到 30 天：以前 7 天后图片被删，微信里翻看旧消息
+    就是一片 404。仓库体积可控（每天约 4 张 × 150KB）。
+    """
     if not (REPO and GH_TOKEN):
         return
     try:
-        cutoff = datetime.strptime(keep_date, "%Y-%m-%d") - timedelta(days=7)
+        cutoff = datetime.strptime(keep_date, "%Y-%m-%d") - timedelta(days=30)
         dirs = gh_api(f"/repos/{REPO}/contents/posters", ok404=True) or []
         for d in dirs:
             if d.get("type") != "dir":
@@ -384,10 +449,18 @@ def fetch_chain_new(seen, cap=2):
             if meta["liq"]:
                 facts.append(f"流动性 {_fmt_usd(meta['liq'])}")
         facts.append(f"合约: {addr[:6]}…{addr[-4:]}")
+        # 流动性过低（<$25K）基本是空气盘/rug 高发区，不进精选
+        try:
+            if meta and meta.get("liq") and float(meta["liq"]) < 25_000:
+                print(f"    [流动性过低] {meta.get('symbol')} ${float(meta['liq']):,.0f}")
+                continue
+        except (TypeError, ValueError):
+            pass
+        # 只保留 名称+符号，不用项目自述的营销文案（机器翻译后基本是噪音）
         if meta and meta["symbol"]:
-            title = f"{meta['symbol']} ({meta['name']})" + (f"｜{desc}" if desc else "")
+            title = f"{meta['symbol']} ({meta['name']})"
         else:
-            title = desc or f"{chain} 链新代币 {addr[:8]}…"
+            title = f"{chain} 链新代币 {addr[:8]}…"
         link = (_find("website") or _find("twitter")
                 or (meta or {}).get("pair_url")
                 or f"https://dexscreener.com/{chain}/{addr}")
@@ -423,6 +496,16 @@ _FACT_LEAD = [r"(?:led by|co-led by)\s+([A-Z][\w&.,' ]{2,40}?)(?:,| with| and|\.
               r"([\w一-龥A-Za-z·]{2,16}?)\s*领投"]
 _FACT_DEADLINE = [r"(?:截止|截至|before|deadline|by)\s*[:：]?\s*(\d{1,2}\s?月\s?\d{1,2}\s?日|\w+ \d{1,2})",
                   r"(\d{1,2}\s?月\s?\d{1,2}\s?日)\s*(?:前|截止|领取|快照)"]
+# 金额必须带语境，否则容易抓到行情价、区块高度这类无关数字
+_FACT_AMT_CTX = ["融资", "轮", "投资", "估值", "价值", "募集", "拨款", "奖池", "奖励",
+                 "收购", "市值", "raised", "funding", "round", "valuation", "valued",
+                 "market cap", "acquisition", "worth"]
+# 只有标题本身在讲钱（融资/估值/奖励），才补充金额，避免抓到行情价等无关数字
+_FUND_TITLE_KW = ["融资", "轮", "投资", "估值", "募集", "收购", "拨款", "奖池",
+                  "奖励", "价值", "市值", "raised", "funding", "round", "valuation",
+                  "market cap"]
+# 项目方社媒账号（对标参考账号：每条都标明项目方，便于自己去核）
+_FACT_TW = [r"(?:twitter|x)\.com/([A-Za-z0-9_]{2,20})"]
 
 
 def _first_match(patterns, text):
@@ -430,6 +513,20 @@ def _first_match(patterns, text):
         m = re.search(p, text)
         if m:
             return (m.group(1) if m.groups() else m.group(0)).strip()
+    return ""
+
+
+def _digits(s):
+    return re.sub(r"\D", "", s or "")
+
+
+def _fact_amount(text):
+    """只保留带语境（融资/估值/奖励）的金额，避免抓到行情价等无关数字。"""
+    for p in _FACT_AMOUNT:
+        for m in re.finditer(p, text, re.I):
+            seg = text[max(0, m.start() - 60): m.end() + 40]
+            if any(c in seg for c in _FACT_AMT_CTX):
+                return m.group(0).strip()
     return ""
 
 
@@ -444,16 +541,23 @@ def enrich(it):
         return
     text = re.sub(r"(?is)<(script|style|noscript)[^>]*>.*?</\1>", " ", raw)
     text = parse_text(text)[:1600]
+    title = it.get("title") or ""
+    title_digits = _digits(title)
     facts = []
-    amt = _first_match(_FACT_AMOUNT, text)
-    if amt:
+    amt = _fact_amount(text)
+    # 标题里已经写过的数字不再重复展示（参考账号的体例：只补标题没说的信息）
+    if amt and _digits(amt) and _digits(amt) not in title_digits \
+            and any(k in title.lower() for k in _FUND_TITLE_KW):
         facts.append(f"金额 {amt}")
     lead = _first_match(_FACT_LEAD, text)
-    if lead:
+    if lead and lead.lower() not in title.lower():
         facts.append(f"领投 {lead}")
     dl = _first_match(_FACT_DEADLINE, text)
     if dl:
         facts.append(f"窗口 {dl}")
+    tw = _first_match(_FACT_TW, text)
+    if tw and tw.lower() not in ("intent", "share", "home", "i", "search"):
+        facts.append(f"𝕏 @{tw}")
     if facts:
         it["facts"] = facts
     if not it.get("desc"):
@@ -485,9 +589,14 @@ def build_items(since_dt, seen_before):
             # 描述与标题重复时丢弃（Google News 常见情况）
             if desc and (title[:12] in desc or desc[:12] in title):
                 desc = ""
-            g = route(feed["group"], title)
-            if g == "web":        # 全网新闻仅作关键词路由素材，不直接入精选
+            if not is_relevant(title, desc, link):
+                print(f"    [噪音过滤] {title[:44]}")
                 continue
+            g = route(feed["group"], title)
+            if g == "web":        # 直连优质源的头条进「行业要闻」；Google 源仍只作路由素材
+                if feed["name"].startswith("X·") or "GoogleNews" in feed["name"]:
+                    continue
+                g = "news"
             buckets[g].append(dict(group=g, pub=pub, title=title,
                                    link=link, desc=desc))
     chain_items, dex_failed = fetch_chain_new(seen, cap=2)
@@ -591,7 +700,7 @@ def make_poster(items, slot_dt, out_path):
 def build_tweet(items, slot_dt):
     lines = [f"⚡ Web3 Alpha 速递 | {slot_dt:%m-%d} {slot_dt:%H}点档"]
     emoji = {"chain": "🆕", "raise": "💰", "testnet": "🧪", "tge": "🚀",
-             "btczec": "⚡", "x": "🐦"}
+             "btczec": "⚡", "x": "🐦", "news": "🌐"}
     for g, header, _ in GROUPS:
         gi = [i for i in items if i["group"] == g]
         if not gi:
@@ -606,13 +715,15 @@ def build_tweet(items, slot_dt):
 
 def build_desp(items, poster_url, tweet, failed, trending=None):
     parts = []
-    if poster_url:
-        parts.append(f"![海报]({poster_url})")
-        parts.append(f"[📋 海报原图]({poster_url})")
-    parts.append("**📤 发推文案（复制即用）**")
-    parts.append(tweet)
+    # ① 纯文字要点放最前：外部图片/链接打不开时，正文照常可读
+    head = []
+    for i, it in enumerate(items, 1):
+        t = it.get("title_zh") or it["title"]
+        extra = f"（{'｜'.join(it['facts'])}）" if it.get("facts") else ""
+        head.append(f"{i}. {t}{extra}")
+    parts.append("**📌 本档要点**\n\n" + "\n".join(head))
     parts.append("---")
-    parts.append("**📋 本档明细**")
+    parts.append("**🗂 分板块明细**")
     for g, header, _ in GROUPS:
         gi = [i for i in items if i["group"] == g]
         if not gi:
@@ -626,12 +737,19 @@ def build_desp(items, poster_url, tweet, failed, trending=None):
             if it.get("facts"):
                 parts.append(f"  > 📌 {'｜'.join(it['facts'])}")
             elif it.get("desc"):
-                parts.append(f"  > {it['desc'][:70]}")
+                d = it["desc"][:70]
+                parts.append(f"  > {d}{'…' if len(it['desc']) > 70 else ''}")
     if trending:
         parts.append("\n**🔥 当前市场热搜**")
         parts.append("、".join(trending))
     if failed:
         parts.append(f"\n*部分源异常：{('、'.join(failed))[:60]}*")
+    parts.append("\n**📤 发推文案（复制即用）**")
+    parts.append(tweet)
+    if poster_url:
+        parts.append("\n**🖼 海报**（图片不显示就点下面直链用浏览器打开）")
+        parts.append(f"[海报原图（CDN 直链）]({poster_url})")
+        parts.append(f"![海报]({poster_url})")
     parts.append("\n*GitHub Actions 自动推送 · 非投资建议*")
     return "\n\n".join(parts)
 

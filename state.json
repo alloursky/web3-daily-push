@@ -1,6 +1,5 @@
 {
  "slots_done": [
-  "2026-09-30_07",
   "2026-09-30_10",
   "2026-09-30_16",
   "2026-10-01_04",
@@ -19,9 +18,10 @@
   "2026-10-04_10",
   "2026-10-04_16",
   "2026-10-04_16",
-  "2026-10-05_04"
+  "2026-10-05_04",
+  "2026-10-05_07"
  ],
- "last_push_at": "2026-10-05T06:11:45.900859+08:00",
+ "last_push_at": "2026-10-05T09:07:10.157268+08:00",
  "seen": [
   "安全预警：darkswordios攻击程序现已被实际利用，建议用户升级最新系统-blockbeats",
   "ripplesaysassetmanagersarepreparingforxrpledger’snextpayment",
@@ -302,6 +302,12 @@
   "'uptober'startsgreenasbitcoinetfsdraw$134million",
   "纽约时报特稿：加密首富赵长鹏的权力赌局",
   "there'sanelectionnextmonth:stateofcrypto",
-  "dex:2rFNkrUaPdTFSCNu5KJoGL2Aiq7YZDE8DYZGZzAJCoKc"
+  "dex:2rFNkrUaPdTFSCNu5KJoGL2Aiq7YZDE8DYZGZzAJCoKc",
+  "glassnode：比特币上方最大清算集群位于约9万美元",
+  "zcashgetsawashingtonlobbyisttopushcryptopolicy",
+  "formersecbossmadeaiczar,bitcoinmayhit$600kthiscycle:hodler’s",
+  "标普全球评级推出链上借贷金库风险评估框架",
+  "数据：ethena关联钱包9小时内从bybit提取1.17亿枚ena，约合2796万美元",
+  "dex:0x97d4C3C1b72aEBB599b70002e9109B88248d51e3"
  ]
 }

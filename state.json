@@ -1,6 +1,5 @@
 {
  "slots_done": [
-  "2026-09-30_16",
   "2026-10-01_04",
   "2026-10-01_07",
   "2026-10-01_10",
@@ -19,9 +18,10 @@
   "2026-10-04_16",
   "2026-10-05_04",
   "2026-10-05_07",
-  "2026-10-05_10"
+  "2026-10-05_10",
+  "2026-10-05_16"
  ],
- "last_push_at": "2026-10-05T11:27:23.850913+08:00",
+ "last_push_at": "2026-10-05T18:45:25.173086+08:00",
  "seen": [
   "安全预警：darkswordios攻击程序现已被实际利用，建议用户升级最新系统-blockbeats",
   "ripplesaysassetmanagersarepreparingforxrpledger’snextpayment",
@@ -314,6 +314,12 @@
   "okx向美sec申请推出代币化美股交易平台，拟首批支持63只纽交所股票",
   "易理华分析加密一级市场寒冬四大原因，呼吁项目建设者、头部cex共同行动扭转颓势",
   "易理华分析加密一级市场寒冬四大原因，呼吁项目建设者、头部cex共同行动扭转颓势-富途牛牛",
-  "dex:6MCgfL8xSJKinCYY9MHHcpNnVmQ57gzULF64mH34pump"
+  "dex:6MCgfL8xSJKinCYY9MHHcpNnVmQ57gzULF64mH34pump",
+  "metaplanet：q3净购入1000枚btc，总持有量达4.4万枚",
+  "liveupdates:bitcoinabove$86,000astraderspriceoutanoctoberfed",
+  "bitcoinisabouttogetamajorbullishsignalithasn'thadinoverayear",
+  "彭博终端上线hyperliquid永续合约监控功能",
+  "是战是谈？美伊进入“关键一周”，油价依旧维持在100元大关之上",
+  "dex:0xad125d271ee107544282f603f173aab35a900ca4"
  ]
 }

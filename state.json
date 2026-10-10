@@ -1,6 +1,5 @@
 {
  "slots_done": [
-  "2026-10-04_10",
   "2026-10-04_16",
   "2026-10-04_16",
   "2026-10-05_04",
@@ -19,15 +18,11 @@
   "2026-10-09_07",
   "2026-10-09_10",
   "2026-10-09_16",
-  "2026-10-10_07"
+  "2026-10-10_07",
+  "2026-10-10_10"
  ],
- "last_push_at": "2026-10-10T07:01:39.196116+08:00",
+ "last_push_at": "2026-10-10T10:33:09.867832+08:00",
  "seen": [
-  "昨夜今晨重要资讯（9月23日-9月24日）-panews",
-  "阿根廷液化天然气项目获得美国进出口银行融资-币界网",
-  "dex:0x03E6a6881D0813bF6157ac4ee44D3Cc73d5465A3",
-  "dex:2UzYMK3WX7XcpLQ9ysMjfS8CtSE1V8poxZ1u8UnRoead",
-  "fuelmanchester2026unveils4morespeakers-businesscloud.co.uk",
   "indiantechfundingrises7%asinvestorsbackfewer,biggerdeals-cnb",
   "variational公布空投细则，你的积分到底值多少钱？-odaily星球日报",
   "aweekofaicodingcutaquantum-safebitcointransactionestimatefro",
@@ -322,6 +317,11 @@
   "aero公布aerodrome与velodrome合并条款，10月21日启动",
   "ledger今日被盗事件为其最大规模安全事件，假应用曾致950万美元被盗",
   "rwa周刊：okx联合ice拟推代币化美股交易平台；欧洲央行拟于2029年推出数字欧元-panews",
-  "dex:85yCKgpycixFWTcbAHEWpU5giL3Cg2VM63j75omUpump"
+  "dex:85yCKgpycixFWTcbAHEWpU5giL3Cg2VM63j75omUpump",
+  "加密早报：ledger用户遭遇大规模钱包被盗，telegram全面推出内置钱包“money”-深潮techflow",
+  "分析：tether可永久清零黑名单usdt",
+  "慢雾解析ledger疑似硬件植入窃取助记词",
+  "吴说周精选：渣打circle等参与okx250亿估值融资、开发者呼吁加密行业进入“安全堡垒模式”与新闻top10-吴说",
+  "dex:6LChGSaKeBUoZGkiNc8z3ZB2rttv7pg1XBPaQJ2rpump"
  ]
 }

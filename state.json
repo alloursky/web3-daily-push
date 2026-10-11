@@ -1,6 +1,5 @@
 {
  "slots_done": [
-  "2026-10-05_10",
   "2026-10-05_16",
   "2026-10-06_07",
   "2026-10-06_10",
@@ -19,13 +18,11 @@
   "2026-10-10_16",
   "2026-10-11_04",
   "2026-10-11_07",
-  "2026-10-11_10"
+  "2026-10-11_10",
+  "2026-10-11_16"
  ],
- "last_push_at": "2026-10-11T11:19:18.059062+08:00",
+ "last_push_at": "2026-10-11T18:12:58.190708+08:00",
  "seen": [
-  "liveupdates:bitcoinsteadiesnear$84,000asthebondselloffpauses",
-  "dex:5PNziPowVm8y4FYmDmfaNMzZpTCTqwW3gj6BSucTpump",
-  "dex:8iYPW781jBDu8zkC6PFY8WpvtbHxSVMgBX8aPnNmRY3z",
   "rwa周刊：首批“创新豁免”代币化股票交易平台或于q4公布运营计划；币安出资1亿美元入股circle-panews",
   "indiatechstartupsraise$10.3bnin9m2026,fundingroundsfall38%-t",
   "circleandtetherstepintofreezehackerwalletaftermassivebitgetc",
@@ -322,6 +319,9 @@
   "dex:ACthgQPe3z2VT7c8VXxcW84cgH4Y1XcUYBcXs4fxpump",
   "鲸鱼在币安和kraken购买3193万美元zec-币界网",
   "赢家排队等发钱，输家爆仓拿空投：一文看懂“亏钱即挖矿”的papertrade",
-  "dex:BtqcMGBL8jhwdc3Wuj9i5FUakP97hCYR4vcvzehApump"
+  "dex:BtqcMGBL8jhwdc3Wuj9i5FUakP97hCYR4vcvzehApump",
+  "当fintech融合加密底层，数字金融的下一个十年",
+  "coldcard官方x账号发布钓鱼链接，疑似遭平台级入侵",
+  "dex:0xB25fAF8C0cB1f7c54F41EA2D5a52d11fB82Cb6A0"
  ]
 }

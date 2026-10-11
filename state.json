@@ -1,6 +1,5 @@
 {
  "slots_done": [
-  "2026-10-05_16",
   "2026-10-06_07",
   "2026-10-06_10",
   "2026-10-06_16",
@@ -19,15 +18,11 @@
   "2026-10-11_04",
   "2026-10-11_07",
   "2026-10-11_10",
-  "2026-10-11_16"
+  "2026-10-11_16",
+  "2026-10-12_04"
  ],
- "last_push_at": "2026-10-11T18:12:58.190708+08:00",
+ "last_push_at": "2026-10-12T06:40:12.946383+08:00",
  "seen": [
-  "rwa周刊：首批“创新豁免”代币化股票交易平台或于q4公布运营计划；币安出资1亿美元入股circle-panews",
-  "indiatechstartupsraise$10.3bnin9m2026,fundingroundsfall38%-t",
-  "circleandtetherstepintofreezehackerwalletaftermassivebitgetc",
-  "比特币持有者以不同方式兑现利润，市场信号积极-币界网",
-  "dex:DANUEWXQrLoRsevHzUrMLXRjbZ3iJX3EoNeTB2w9pQDB",
   "dex:8LnBUZVAPs8ZND5sR45catu4RasuovpJX6UiSGhJtpQC",
   "dex:CtxVKyLks7EPemfCX6wgd8dLX3zBvuzpqeSaJo4jrWWD",
   "dex:9VRxuR3jRexKxGA1uMCDgPWyLnGnPEFAbyohUP7mMpCE",
@@ -322,6 +317,11 @@
   "dex:BtqcMGBL8jhwdc3Wuj9i5FUakP97hCYR4vcvzehApump",
   "当fintech融合加密底层，数字金融的下一个十年",
   "coldcard官方x账号发布钓鱼链接，疑似遭平台级入侵",
-  "dex:0xB25fAF8C0cB1f7c54F41EA2D5a52d11fB82Cb6A0"
+  "dex:0xB25fAF8C0cB1f7c54F41EA2D5a52d11fB82Cb6A0",
+  "saylorteasesstrategybitcoinbuyingafterendingseptemberwithstr",
+  "bitcoin,ethereumandsolanaetfsallintheredforoctober",
+  "观点：clarity法案未通过，加密高管看到defi机会",
+  "papertrade回应价格操纵与协议漏洞质疑：上线初期持仓上限宽松所致，已开始收紧参数",
+  "dex:8yZVkceGGoqxDWhVC8TVRtfy3Xq1brZomZLvujBnpump"
  ]
 }

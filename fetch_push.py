@@ -29,7 +29,7 @@ SLOT_HOURS = [5, 6, 7, 8, 9]             # 定时器档位（北京），实际�
 DISPLAY_OFFSET = 2                        # 展示用档位 = 定时档位 + 2
 MAX_PER_SOURCE = 6
 SEEN_KEEP = 400
-TOTAL_CAP = 10
+TOTAL_CAP = 12
 MIN_ITEMS = 5                             # 每档目标 5-10 条
 DAILY_QUOTA = 5                           # Server酱免费版每天 5 条
 GOSSIP_CAP = 3                            # 娱乐八卦每档上限
@@ -91,6 +91,16 @@ SPICY_KW = [
     "看不惯", "忍不了", "凭什么", "塌了", "崩溃", "破防了", "冲上热搜",
     "天塌了", "emo", "内耗", "发疯", "摆烂", "躺平", "显眼包",
 ]
+# 另类/反差/眼前一亮：加权
+QUIRKY_KW = [
+    "万万没想到", "竟然", "居然", "冷知识", "奇闻", "罕见", "首次",
+    "反差", "迷惑行为", "沙雕", "神仙操作", "硬核", "离谱操作",
+    "黑科技", "脑洞", "神回复", "神操作", "活久见", "大开眼界",
+    "外星人", "UFO", "穿越", "玄学", "锦鲤", "许愿", "中奖",
+    "环卫工", "快递小哥", "外卖员", "保安", "大爷", "大妈", "奶奶",
+    "小学生", "中学生", "宿管", "食堂阿姨", "网红打卡", "村BA",
+    "瞒着", "偷偷", "意外发现", "随手", "阴差阳错", "命运的齿轮",
+]
 
 
 def is_sensitive(text):
@@ -106,12 +116,14 @@ def is_gossip(text):
 
 
 def topic_score(h):
-    """口味分：生活小话题 +2，暴论争议 +2，叠加官方词已在前面过滤。"""
+    """口味分：生活小话题/暴论争议/另类反差各 +2，可叠加。"""
     w = h["word"]
     s = 0
     if any(k in w for k in LIFE_KW):
         s += 2
     if any(k in w for k in SPICY_KW):
+        s += 2
+    if any(k in w for k in QUIRKY_KW):
         s += 2
     return s
 
@@ -450,7 +462,7 @@ def build_items(since_dt, seen_map):
         key=lambda h: (topic_score(h), h["label"] in ("爆", "沸"),
                        h["heat"]), reverse=True)
     for h in hot_ranked:
-        if len(buckets["hot"]) >= 6:
+        if len(buckets["hot"]) >= 8:
             break
         if is_sensitive(h["word"]) or is_official(h["word"]):
             continue
@@ -500,7 +512,7 @@ def build_items(since_dt, seen_map):
                 group=feed["group"], pub=pub, title=t[:70],
                 link=link, heat=0, label="", _key=k))
 
-    picked = buckets["hot"][:6] + buckets["ai"][:2] + buckets["crypto"][:2]
+    picked = buckets["hot"][:8] + buckets["ai"][:2] + buckets["crypto"][:2]
     return picked[:TOTAL_CAP], failed
 
 
@@ -517,7 +529,7 @@ GROUP_HEAD = {"hot": "🔥 全网热搜", "ai": "🤖 AI 风向", "crypto": "₿
 def build_tweet(items, slot_label):
     lines = [f"🍉 这会儿网友都在吵这些 | {slot_label}"]
     emoji = {"hot": "🔥", "ai": "🤖", "crypto": "₿"}
-    for it in items[:8]:
+    for it in items[:10]:
         t = it.get("title_zh") or it["title"]
         lines.append(f"{emoji[it['group']]} {t[:32]}")
     lines.append("每日 5 档，只挑普通人关心的话题")

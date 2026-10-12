@@ -67,14 +67,65 @@ GOSSIP_KW = [
     "演唱会", "综艺", "路透", "男团", "女团", "爱豆", "顶流", "小花", "小生",
     "电视剧", "新剧", "开机", "杀青", "票房", "首映", "导演", "主演",
 ]
+# 官方宣传味：一律不推（太大太官，普通人无感）
+OFFICIAL_KW = [
+    "万千气象", "视察", "调研", "座谈", "宣讲", "党建", "主题教育",
+    "批示", "重要指示", "讲话精神", "常委会", "全会", "开幕会", "闭幕",
+    "高质量建设", "示范区", "文明创建", "乡村振兴巡礼", "奋进新",
+    "征程", "谱写新篇", "答卷", "献礼",
+]
+# 普通人生活小话题：加权
+LIFE_KW = [
+    "打工人", "工资", "涨薪", "降薪", "裁员", "离职", "裸辞", "加班费",
+    "外卖", "奶茶", "咖啡", "火锅", "食堂", "预制菜", "涨价", "降价",
+    "房租", "房贷", "租房", "房东", "地铁", "通勤", "堵车", "高铁", "机票",
+    "相亲", "彩礼", "催婚", "催生", "带娃", "辅导作业", "家长群",
+    "减肥", "熬夜", "脱发", "体检", "医保", "挂号", "存钱", "存款",
+    "双十一", "快递", "退货", "客服", "会员", "自动续费", "机票盲盒",
+    "宿舍", "考研", "考公", "上岸", "毕业论文", "开学", "寒假", "暑假",
+]
+# 暴论/争议/情绪：加权
+SPICY_KW = [
+    "离谱", "奇葩", "吵翻", "争议", "破防", "怒", "反转", "翻车",
+    "道歉", "回应", "怒怼", "吐槽", "评论区", "炸锅", "吵起来",
+    "看不惯", "忍不了", "凭什么", "塌了", "崩溃", "破防了", "冲上热搜",
+    "天塌了", "emo", "内耗", "发疯", "摆烂", "躺平", "显眼包",
+]
 
 
 def is_sensitive(text):
     return any(k in text for k in SENSITIVE_KW)
 
 
+def is_official(text):
+    return any(k in text for k in OFFICIAL_KW)
+
+
 def is_gossip(text):
     return any(k in text for k in GOSSIP_KW)
+
+
+def topic_score(h):
+    """口味分：生活小话题 +2，暴论争议 +2，叠加官方词已在前面过滤。"""
+    w = h["word"]
+    s = 0
+    if any(k in w for k in LIFE_KW):
+        s += 2
+    if any(k in w for k in SPICY_KW):
+        s += 2
+    return s
+
+
+def _sim(a, b):
+    """两个词条的相似度（0-1）。"""
+    import difflib
+    na = re.sub(r"[^0-9A-Za-z一-鿿]", "", a)
+    nb = re.sub(r"[^0-9A-Za-z一-鿿]", "", b)
+    if not na or not nb:
+        return 0
+    if na in nb or nb in na:
+        return 1
+    return difflib.SequenceMatcher(None, na, nb).ratio()
 
 
 # ---------------- GitHub API ----------------
@@ -396,11 +447,16 @@ def build_items(since_dt, seen_map):
     gossip_used = 0
     hot_ranked = sorted(
         hot_list,
-        key=lambda h: (h["label"] in ("爆", "沸"), h["heat"]), reverse=True)
+        key=lambda h: (topic_score(h), h["label"] in ("爆", "沸"),
+                       h["heat"]), reverse=True)
     for h in hot_ranked:
         if len(buckets["hot"]) >= 6:
             break
-        if is_sensitive(h["word"]):
+        if is_sensitive(h["word"]) or is_official(h["word"]):
+            continue
+        # 同话题近义词条去重（如"XX回应涨工资" vs "XX 涨工资"）
+        if any(_sim(h["word"], p["title"].replace("🔥升温·", "")) > 0.6
+               for p in buckets["hot"]):
             continue
         k = key_of(h["word"])
         old = seen_map.get(k)
@@ -459,13 +515,13 @@ GROUP_HEAD = {"hot": "🔥 全网热搜", "ai": "🤖 AI 风向", "crypto": "₿
 
 
 def build_tweet(items, slot_label):
-    lines = [f"⚡ 今日热点速递 | {slot_label}"]
+    lines = [f"🍉 这会儿网友都在吵这些 | {slot_label}"]
     emoji = {"hot": "🔥", "ai": "🤖", "crypto": "₿"}
     for it in items[:8]:
         t = it.get("title_zh") or it["title"]
         lines.append(f"{emoji[it['group']]} {t[:32]}")
-    lines.append("👥 每日 5 档全网最热速递")
-    lines.append("#热点 #热搜 #AI #Crypto")
+    lines.append("每日 5 档，只挑普通人关心的话题")
+    lines.append("#热搜 #今日话题 #AI #Crypto")
     return "\n".join(lines)
 
 

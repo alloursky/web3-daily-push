@@ -1,6 +1,5 @@
 {
  "slots_done": [
-  "2026-10-06_07",
   "2026-10-06_10",
   "2026-10-06_16",
   "2026-10-07_04",
@@ -19,13 +18,11 @@
   "2026-10-11_07",
   "2026-10-11_10",
   "2026-10-11_16",
-  "2026-10-12_04"
+  "2026-10-12_04",
+  "2026-10-12_10"
  ],
- "last_push_at": "2026-10-12T06:40:12.946383+08:00",
+ "last_push_at": "2026-10-12T10:02:34.480287+08:00",
  "seen": [
-  "dex:8LnBUZVAPs8ZND5sR45catu4RasuovpJX6UiSGhJtpQC",
-  "dex:CtxVKyLks7EPemfCX6wgd8dLX3zBvuzpqeSaJo4jrWWD",
-  "dex:9VRxuR3jRexKxGA1uMCDgPWyLnGnPEFAbyohUP7mMpCE",
   "dex:0x13697195Bd7D5e6C6160F94fAf3E84A7F709F62D",
   "dex:8GVTF58ckNj51rTXzTMDo5pUMPdqeRhd1RqzBGMopaid",
   "thevacuumlisk’sexitleavesinafrica’sweb3funding-cedirates",
@@ -322,6 +319,9 @@
   "bitcoin,ethereumandsolanaetfsallintheredforoctober",
   "观点：clarity法案未通过，加密高管看到defi机会",
   "papertrade回应价格操纵与协议漏洞质疑：上线初期持仓上限宽松所致，已开始收紧参数",
-  "dex:8yZVkceGGoqxDWhVC8TVRtfy3Xq1brZomZLvujBnpump"
+  "dex:8yZVkceGGoqxDWhVC8TVRtfy3Xq1brZomZLvujBnpump",
+  "ethena累计协议费用达10.61亿美元",
+  "从crypto积分到物理ai基础设施：mecka如何获得红杉与英伟达青睐？-panews",
+  "dex:9emscrCbv7SV2f9oXFUwmKmSVZxiwGe5ynScMKCpump"
  ]
 }
